@@ -6,7 +6,7 @@ package com.wocnz.stusys.domain;
  * 先行课编号cpno：char(6)
  * 学分ccredit：smallint(2)
  */
-public class course {
+public class Course {
 
     private String cno;
     private String cname;

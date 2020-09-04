@@ -1,7 +1,7 @@
 package com.wocnz.stusys.dao.impl;
 
-import com.wocnz.stusys.dao.teacherDao;
-import com.wocnz.stusys.domain.teacher;
+import com.wocnz.stusys.dao.TeacherDao;
+import com.wocnz.stusys.domain.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,20 +9,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public class teacherDaoImpl implements teacherDao {
+public class TeacherDaoImpl implements TeacherDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<teacher> findAllTea() {
+    public List<Teacher> findAllTea() {
         String sql="select * from student";
-        List<teacher> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(teacher.class));
+        List<Teacher> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Teacher.class));
         System.out.println(students);
         return students;
     }
 
     @Override
-    public boolean addTeacher(teacher tea) {
+    public boolean addTeacher(Teacher tea) {
         System.out.println(tea);
         String sql="insert into teacher values(?,?,?,?,?)";
         System.out.println(sql);
@@ -67,14 +67,14 @@ public class teacherDaoImpl implements teacherDao {
     }
 
     @Override
-    public teacher findStudentBytno(String tno) {
+    public Teacher findStudentBytno(String tno) {
         String sql2="select *from teacher where sno = ?";
-        return  jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(teacher.class),tno);
+        return  jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(Teacher.class),tno);
 
     }
 
     @Override
-    public teacher updateTeacher(String tno, teacher tea) {
+    public Teacher updateTeacher(String tno, Teacher tea) {
         System.out.println(tno);
         String sql="update teacher  set tname=?, tsex=?, tage=?, teb=? ,tpt=?, cno1=?, cno2=?,cno3=? where tno=?  ";
         System.out.println(sql);

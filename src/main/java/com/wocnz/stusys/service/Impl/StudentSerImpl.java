@@ -1,28 +1,27 @@
 package com.wocnz.stusys.service.Impl;
 
-import com.wocnz.stusys.dao.impl.studentDaoImpl;
+import com.wocnz.stusys.dao.impl.StudentDaoImpl;
 
-import com.wocnz.stusys.domain.student;
-import com.wocnz.stusys.service.studentSer;
+import com.wocnz.stusys.domain.Student;
+import com.wocnz.stusys.service.StudentSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class studentSerImpl implements studentSer {
+public class StudentSerImpl implements StudentSer {
     @Autowired
-    studentDaoImpl studaoImpl;
+    StudentDaoImpl studaoImpl;
 
     @Override
-    public List<student> findAllStu() {
+    public List<Student> findAllStu() {
 
         return studaoImpl.findAllStu();
     }
 
     @Override
-    public boolean addStudent(student stu) {
+    public boolean addStudent(Student stu) {
 
 
         return studaoImpl.addStudent( stu);
@@ -35,14 +34,14 @@ public class studentSerImpl implements studentSer {
     }
 
     @Override
-    public student findStudentBySno(String sno) {
+    public Student findStudentBySno(String sno) {
 
         return studaoImpl.findStudentBySno( sno);
 
     }
 
     @Override
-    public student updateStudent(String sno, student stu) {
+    public Student updateStudent(String sno, Student stu) {
 
         return studaoImpl.updateStudent( sno,stu);
     }

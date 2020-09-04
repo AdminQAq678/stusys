@@ -1,7 +1,7 @@
 package com.wocnz.stusys.controller;
 
-import com.wocnz.stusys.domain.student;
-import com.wocnz.stusys.service.Impl.studentSerImpl;
+import com.wocnz.stusys.domain.Student;
+import com.wocnz.stusys.service.Impl.StudentSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ public class studentCon {
 
 
     @Autowired
-    studentSerImpl stuSerImpl;
+    StudentSerImpl stuSerImpl;
 
     @RequestMapping("/findAllStu")
-    public List<student> findAllStu(){
+    public List<Student> findAllStu(){
 
 
         return stuSerImpl.findAllStu();
@@ -32,7 +32,7 @@ public class studentCon {
      * @return student
      */
     @RequestMapping(value = "/student/{sno}",method = RequestMethod.GET)
-    public student findStudentById(@PathVariable("sno") String sno){
+    public Student findStudentById(@PathVariable("sno") String sno){
         System.out.println(sno);
         System.out.println("get");
         return stuSerImpl.findStudentBySno(sno);
@@ -45,7 +45,7 @@ public class studentCon {
      * @return
      */
     @RequestMapping(value = "/student/{sno}",method = RequestMethod.PUT)
-    public student updateStudent(@PathVariable("sno") String sno,student stu){
+    public Student updateStudent(@PathVariable("sno") String sno, Student stu){
         System.out.println(sno);
         System.out.println(stu);
         System.out.println("update");
@@ -60,7 +60,7 @@ public class studentCon {
      * @return
      */
     @RequestMapping(value = "/student",method = RequestMethod.POST)
-    public ArrayList<student> addStudent( student stu){
+    public ArrayList<Student> addStudent(Student stu){
         System.out.println("add");
         stuSerImpl.addStudent(stu);
         return null;
@@ -72,7 +72,7 @@ public class studentCon {
      * @return null
      */
     @RequestMapping(value = "/student/{sno}",method = RequestMethod.DELETE)
-    public ArrayList<student> delStudent(@PathVariable("sno") String  sno){
+    public ArrayList<Student> delStudent(@PathVariable("sno") String  sno){
         if(stuSerImpl.delStudent(sno)){
             System.out.println("删除学生信息成功");
         }

@@ -6,7 +6,7 @@ package com.wocnz.stusys.domain;
  * 系名dname：nvarchar(30)
  * 系主任dmanagerno： char(8)
  */
-public class department {
+public class Department {
     private String dno;
     private String dname;
     private String dmanagerno;

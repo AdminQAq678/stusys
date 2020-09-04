@@ -1,18 +1,16 @@
 package com.wocnz.stusys.dao.impl;
 
-import com.wocnz.stusys.dao.studentDao;
-import com.wocnz.stusys.domain.student;
+import com.wocnz.stusys.dao.StudentDao;
+import com.wocnz.stusys.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Repository
-public class studentDaoImpl implements studentDao {
+public class StudentDaoImpl implements StudentDao {
     /**
      * jdbc模板
      */
@@ -24,9 +22,9 @@ public class studentDaoImpl implements studentDao {
      * @return
      */
     @Override
-    public List<student> findAllStu() {
+    public List<Student> findAllStu() {
         String sql="select * from student";
-        List<student> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(student.class));
+        List<Student> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Student.class));
         System.out.println(students);
 
         return students;
@@ -38,7 +36,7 @@ public class studentDaoImpl implements studentDao {
      * @return
      */
     @Override
-    public boolean addStudent(student stu) {
+    public boolean addStudent(Student stu) {
         System.out.println(stu);
         String sql="insert into student values(?,?,?,?,?)";
         System.out.println(sql);
@@ -78,9 +76,9 @@ public class studentDaoImpl implements studentDao {
     }
 
     @Override
-    public student findStudentBySno(String sno) {
+    public Student findStudentBySno(String sno) {
         String sql2="select *from student where sno = ?";
-        student ret=jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(student.class),sno);
+        Student ret=jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(Student.class),sno);
         return ret;
     }
 
@@ -91,7 +89,7 @@ public class studentDaoImpl implements studentDao {
          * @return
          */
     @Override
-    public student updateStudent(String sno, student stu) {
+    public Student updateStudent(String sno, Student stu) {
         System.out.println(sno);
         String sql="update student  set sname=?, ssex=?, sage=?, sdept=? where sno=?  ";
         System.out.println(sql);

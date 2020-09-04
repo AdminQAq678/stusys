@@ -1,6 +1,6 @@
 package com.wocnz.stusys.domain;
 
-public class teacher {
+public class Teacher {
     /**
      *
     教工号tno：char(8)

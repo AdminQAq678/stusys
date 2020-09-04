@@ -1,24 +1,24 @@
 package com.wocnz.stusys.service.Impl;
 
-import com.wocnz.stusys.dao.impl.teacherDaoImpl;
-import com.wocnz.stusys.domain.teacher;
-import com.wocnz.stusys.service.teacherSer;
+import com.wocnz.stusys.dao.impl.TeacherDaoImpl;
+import com.wocnz.stusys.domain.Teacher;
+import com.wocnz.stusys.service.TeacherSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class teacherSerImpl implements teacherSer {
+public class TeacherSerImpl implements TeacherSer {
     @Autowired
-    teacherDaoImpl teadDaoImpl;
+    TeacherDaoImpl teadDaoImpl;
 
     @Override
-    public List<teacher> findAllTea() {
+    public List<Teacher> findAllTea() {
         return teadDaoImpl.findAllTea();
     }
 
     @Override
-    public boolean addTeacher(teacher tea) {
+    public boolean addTeacher(Teacher tea) {
         return teadDaoImpl.addTeacher(tea);
     }
 
@@ -28,12 +28,12 @@ public class teacherSerImpl implements teacherSer {
     }
 
     @Override
-    public teacher findStudentBytno(String tno) {
+    public Teacher findStudentBytno(String tno) {
         return teadDaoImpl.findStudentBytno(tno);
     }
 
     @Override
-    public teacher updateTeacher(String tno, teacher tea) {
+    public Teacher updateTeacher(String tno, Teacher tea) {
         return updateTeacher(tno,tea);
     }
 }

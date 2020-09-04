@@ -7,7 +7,7 @@ package com.wocnz.stusys.domain;
  * 教工号tno：char(8)
  * 成绩grade：int(4)
  */
-public class sct {
+public class Sct {
 
     private String sno;
     private String cno;

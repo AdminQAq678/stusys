@@ -8,7 +8,7 @@ package com.wocnz.stusys.domain;
  * 年龄sage：int(4)     14≤sage≤24
  * 系别sdept：nvarchar(30)
  */
-public class student {
+public class Student {
     private String sno;
     private String sname;
     private  String ssex;
