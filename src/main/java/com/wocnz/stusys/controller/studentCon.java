@@ -2,12 +2,8 @@ package com.wocnz.stusys.controller;
 
 import com.wocnz.stusys.domain.student;
 import com.wocnz.stusys.service.Impl.studentSerImpl;
-import com.wocnz.stusys.service.studentSer;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +15,7 @@ public class studentCon {
      * @return
      */
 
-    @Autowired
-    studentSer ser;
+
     @Autowired
     studentSerImpl stuSerImpl;
 
@@ -34,7 +29,7 @@ public class studentCon {
     /**
      * 根据学号查询学生信息
      * @param sno
-     * @return
+     * @return student
      */
     @RequestMapping(value = "/student/{sno}",method = RequestMethod.GET)
     public student findStudentById(@PathVariable("sno") String sno){
@@ -74,13 +69,13 @@ public class studentCon {
      * 根据sno查询学生信息
      *
      * @param sno
-     * @return
+     * @return null
      */
     @RequestMapping(value = "/student/{sno}",method = RequestMethod.DELETE)
     public ArrayList<student> delStudent(@PathVariable("sno") String  sno){
         if(stuSerImpl.delStudent(sno)){
             System.out.println("删除学生信息成功");
-        };
+        }
         return null;
     }
 

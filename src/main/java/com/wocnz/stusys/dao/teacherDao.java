@@ -1,10 +1,11 @@
-package com.wocnz.stusys.service;
+package com.wocnz.stusys.dao;
+
 
 import com.wocnz.stusys.domain.teacher;
 
 import java.util.List;
 
-public interface teacherSer {
+public interface teacherDao {
     public List<teacher> findAllTea();
 
     public boolean addTeacher(teacher tea);
@@ -14,5 +15,4 @@ public interface teacherSer {
     public teacher findStudentBytno(String tno);
 
     public teacher updateTeacher(String tno, teacher tea );
-
 }

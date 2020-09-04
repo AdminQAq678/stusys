@@ -17,8 +17,8 @@ public class studentSerImpl implements studentSer {
 
     @Override
     public List<student> findAllStu() {
-        studaoImpl.findAllStu();
-        return null;
+
+        return studaoImpl.findAllStu();
     }
 
     @Override

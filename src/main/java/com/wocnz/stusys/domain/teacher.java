@@ -19,9 +19,8 @@ public class teacher {
     private int tage;
     private String teb;
     private String tpt;
-    private String tno1;
-    private String tno2;
-    private String tno3;
+    private String cno1;
+    private String cno2;
 
     @Override
     public String toString() {
@@ -32,9 +31,9 @@ public class teacher {
                 ", tage=" + tage +
                 ", teb='" + teb + '\'' +
                 ", tpt='" + tpt + '\'' +
-                ", tno1='" + tno1 + '\'' +
-                ", tno2='" + tno2 + '\'' +
-                ", tno3='" + tno3 + '\'' +
+                ", cno1='" + cno1 + '\'' +
+                ", cno2='" + cno2 + '\'' +
+                ", cno3='" + cno3 + '\'' +
                 '}';
     }
 
@@ -86,27 +85,31 @@ public class teacher {
         this.tpt = tpt;
     }
 
-    public String getTno1() {
-        return tno1;
+    public String getCno1() {
+        return cno1;
     }
 
-    public void setTno1(String tno1) {
-        this.tno1 = tno1;
+    public void setCno1(String cno1) {
+        this.cno1 = cno1;
     }
 
-    public String getTno2() {
-        return tno2;
+    public String getCno2() {
+        return cno2;
     }
 
-    public void setTno2(String tno2) {
-        this.tno2 = tno2;
+    public void setCno2(String cno2) {
+        this.cno2 = cno2;
     }
 
-    public String getTno3() {
-        return tno3;
+    public String getCno3() {
+        return cno3;
     }
 
-    public void setTno3(String tno3) {
-        this.tno3 = tno3;
+    public void setCno3(String cno3) {
+        this.cno3 = cno3;
     }
+
+    private String cno3;
+
+
 }
