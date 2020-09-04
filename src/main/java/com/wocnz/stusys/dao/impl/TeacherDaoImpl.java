@@ -24,7 +24,7 @@ public class TeacherDaoImpl implements TeacherDao {
     @Override
     public boolean addTeacher(Teacher tea) {
         System.out.println(tea);
-        String sql="insert into teacher values(?,?,?,?,?)";
+        String sql="insert into teacher values(?,?,?,?,?,?,?,?,?)";
         System.out.println(sql);
         try{
             int cnt=jdbcTemplate.update(sql,tea.getTno(),tea.getTname(),tea.getTsex(),tea.getTage(),tea.getTeb(),tea.getTpt(),

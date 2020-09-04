@@ -1,10 +1,10 @@
-package com.wocnz.stusys.dao;
+package com.wocnz.stusys.service;
 
 import com.wocnz.stusys.domain.Course;
 
 import java.util.List;
 
-public interface CourseDao {
+public interface CourseSer {
     public List<Course> findAllCou();
 
     public boolean addCourse(Course cou);
@@ -14,5 +14,6 @@ public interface CourseDao {
     public Course findCourseByCno(String cno);
 
     public Course updateCourse(String cno, Course cou );
+
 
 }
