@@ -17,4 +17,7 @@ workbench 复制sql语句运行。。。
 
 2020/9/4 22:20
 
+7. 前端html css js文件放置说明
+前端文件需要放置在 src/main/webapp目录下才可以供浏览器访问
+
 
