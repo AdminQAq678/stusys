@@ -12,7 +12,7 @@ public interface TeacherDao {
 
     public boolean delTeacher(String tno);
 
-    public Teacher findStudentBytno(String tno);
+    public Teacher findTeacherBytno(String tno);
 
     public Teacher updateTeacher(String tno, Teacher tea );
 }

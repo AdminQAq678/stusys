@@ -21,10 +21,8 @@ public class teachercon {
      * @param tno
      * @return
      */
-    @RequestMapping("/getAllTea")
+    @RequestMapping("/findAllTea")
     public List<Teacher> findAll(@PathParam("tno") String tno){
-        System.out.println(tno);
-        System.out.println("tno");
         return  teaSerImpl.findAllTea();
 
     }
@@ -36,8 +34,7 @@ public class teachercon {
      */
     @RequestMapping(value = "/teacher/{tno}",method = RequestMethod.GET)
     public Teacher findStudentById(@PathVariable("tno") String tno){
-        System.out.println(tno);
-        System.out.println("get");
+
         return teaSerImpl.findStudentBytno(tno);
     }
 
@@ -49,9 +46,7 @@ public class teachercon {
      */
     @RequestMapping(value = "/teacher/{tno}",method = RequestMethod.PUT)
     public Teacher updateStudent(@PathVariable("tno") String tno, Teacher tea){
-        System.out.println(tno);
-        System.out.println(tea);
-        System.out.println("update");
+
         return teaSerImpl.updateTeacher(tno,tea);
     }
     /**
@@ -62,7 +57,7 @@ public class teachercon {
      */
     @RequestMapping(value = "/teacher",method = RequestMethod.POST)
     public boolean addStudent( Teacher tea){
-        System.out.println("add");
+
         return teaSerImpl.addTeacher(tea);
     }
     /**
@@ -73,7 +68,6 @@ public class teachercon {
      */
     @RequestMapping(value = "/teacher/{tno}",method = RequestMethod.DELETE)
     public boolean delStudent(@PathVariable("tno") String tno){
-        System.out.println("deltno");
         return teaSerImpl.delTeacher(tno);
     }
 

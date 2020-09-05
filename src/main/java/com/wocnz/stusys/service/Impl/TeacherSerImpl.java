@@ -29,11 +29,11 @@ public class TeacherSerImpl implements TeacherSer {
 
     @Override
     public Teacher findStudentBytno(String tno) {
-        return teadDaoImpl.findStudentBytno(tno);
+        return teadDaoImpl.findTeacherBytno(tno);
     }
 
     @Override
     public Teacher updateTeacher(String tno, Teacher tea) {
-        return updateTeacher(tno,tea);
+        return teadDaoImpl.updateTeacher(tno,tea);
     }
 }

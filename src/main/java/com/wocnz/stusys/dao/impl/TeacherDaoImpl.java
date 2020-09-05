@@ -15,10 +15,10 @@ public class TeacherDaoImpl implements TeacherDao {
 
     @Override
     public List<Teacher> findAllTea() {
-        String sql="select * from student";
-        List<Teacher> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Teacher.class));
-        System.out.println(students);
-        return students;
+        String sql="select * from teacher";
+        List<Teacher> teachers=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Teacher.class));
+        System.out.println(teachers);
+        return teachers;
     }
 
     @Override
@@ -67,8 +67,8 @@ public class TeacherDaoImpl implements TeacherDao {
     }
 
     @Override
-    public Teacher findStudentBytno(String tno) {
-        String sql2="select *from teacher where sno = ?";
+    public Teacher findTeacherBytno(String tno) {
+        String sql2="select *from teacher where tno = ?";
         return  jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(Teacher.class),tno);
 
     }
@@ -85,11 +85,11 @@ public class TeacherDaoImpl implements TeacherDao {
             if (cnt>0){
                 System.err.println("更新教师信息成功");
                 //查询教师信息并返回后端
-                return  this.findStudentBytno(tno);
+                return  findTeacherBytno(tno);
             }
         }
         catch (Exception e){
-
+            e.printStackTrace();
             System.err.println("更新教师sql执行失败"+sql+" "+tno);
             return null;
 

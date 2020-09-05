@@ -21,7 +21,7 @@ public class Teacher {
     private String tpt;
     private String cno1;
     private String cno2;
-
+    private String cno3;
     @Override
     public String toString() {
         return "teacher{" +
@@ -109,7 +109,7 @@ public class Teacher {
         this.cno3 = cno3;
     }
 
-    private String cno3;
+
 
 
 }
