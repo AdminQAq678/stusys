@@ -4,10 +4,8 @@ package com.wocnz.stusys.controller;
 import com.wocnz.stusys.domain.Teacher;
 import com.wocnz.stusys.service.Impl.TeacherSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.websocket.server.PathParam;
 import java.util.List;
 
@@ -45,7 +43,7 @@ public class teachercon {
      * @return
      */
     @RequestMapping(value = "/teacher/{tno}",method = RequestMethod.PUT)
-    public Teacher updateStudent(@PathVariable("tno") String tno, Teacher tea){
+    public Teacher updateStudent(@PathVariable("tno") String tno,@RequestBody Teacher tea){
 
         return teaSerImpl.updateTeacher(tno,tea);
     }
@@ -56,7 +54,7 @@ public class teachercon {
      * @return
      */
     @RequestMapping(value = "/teacher",method = RequestMethod.POST)
-    public boolean addStudent( Teacher tea){
+    public boolean addStudent( @RequestBody Teacher tea){
 
         return teaSerImpl.addTeacher(tea);
     }

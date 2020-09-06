@@ -23,7 +23,6 @@ public class StudentSerImpl implements StudentSer {
     @Override
     public boolean addStudent(Student stu) {
 
-
         return studaoImpl.addStudent( stu);
     }
 

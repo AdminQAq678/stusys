@@ -45,7 +45,7 @@ public class studentCon {
      * @return
      */
     @RequestMapping(value = "/student/{sno}",method = RequestMethod.PUT)
-    public Student updateStudent(@PathVariable("sno") String sno, Student stu){
+    public Student updateStudent(@PathVariable("sno") String sno,@RequestBody Student stu){
         System.out.println(sno);
         System.out.println(stu);
         System.out.println("update");
@@ -60,10 +60,13 @@ public class studentCon {
      * @return
      */
     @RequestMapping(value = "/student",method = RequestMethod.POST)
-    public ArrayList<Student> addStudent(Student stu){
+    public boolean addStudent(@RequestBody Student stu){
         System.out.println("add");
-        stuSerImpl.addStudent(stu);
-        return null;
+
+        if(stu.getSdept().length()==0){
+            stu.setSdept(null);
+        }
+        return  stuSerImpl.addStudent(stu);
     }
     /**
      * 根据sno查询学生信息

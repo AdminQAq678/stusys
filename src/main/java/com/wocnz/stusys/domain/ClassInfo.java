@@ -11,8 +11,10 @@ public class ClassInfo {
     private String sno;
     //学生姓名
     private String sname;
-    //课程名称
+    //课程编号
     private String cno;
+    //课程名称
+    private String cname;
     //教师编号
     private String tno;
     //教师名称
@@ -30,6 +32,7 @@ public class ClassInfo {
                 "sno='" + sno + '\'' +
                 ", sname='" + sname + '\'' +
                 ", cno='" + cno + '\'' +
+                ", cname='" + cname + '\'' +
                 ", tno='" + tno + '\'' +
                 ", tname='" + tname + '\'' +
                 ", cpno='" + cpno + '\'' +
@@ -60,6 +63,14 @@ public class ClassInfo {
 
     public void setCno(String cno) {
         this.cno = cno;
+    }
+
+    public String getCname() {
+        return cname;
+    }
+
+    public void setCname(String cname) {
+        this.cname = cname;
     }
 
     public String getTno() {

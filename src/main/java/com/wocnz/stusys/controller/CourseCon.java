@@ -4,10 +4,7 @@ package com.wocnz.stusys.controller;
 import com.wocnz.stusys.domain.Course;
 import com.wocnz.stusys.service.Impl.CourseSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +45,7 @@ public class CourseCon {
      * @return
      */
     @RequestMapping(value = "/course/{cno}",method = RequestMethod.PUT)
-    public Course updateCourse(@PathVariable("cno") String cno, Course cou){
+    public Course updateCourse(@PathVariable("cno") String cno,@RequestBody Course cou){
         System.out.println(cno);
         System.out.println(cou);
         System.out.println("update");
@@ -63,7 +60,7 @@ public class CourseCon {
      * @return
      */
     @RequestMapping(value = "/course",method = RequestMethod.POST)
-    public ArrayList<Course> addCourse(Course cou){
+    public ArrayList<Course> addCourse(@RequestBody Course cou){
         System.out.println("add");
         courseSerImpl.addCourse(cou);
         return null;
