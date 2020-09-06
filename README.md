@@ -21,5 +21,22 @@ workbench 复制sql语句运行。。。
 前端文件需要放置在 src/main/webapp目录下才可以供浏览器访问
 
 
+### 跨域问题解决
+···java
+@Configuration
+public class WebMvcConfig implements WebMvcConfigurer {
 
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
+                .maxAge(3600)
+                .allowCredentials(true);
+    }
+    }
+
+
+### 后端获取不到前端数据的问题
+在参数里面加@RequestBody注解 可以将参数对象解析出来
 
