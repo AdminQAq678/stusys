@@ -75,11 +75,10 @@ public class studentCon {
      * @return null
      */
     @RequestMapping(value = "/student/{sno}",method = RequestMethod.DELETE)
-    public ArrayList<Student> delStudent(@PathVariable("sno") String  sno){
-        if(stuSerImpl.delStudent(sno)){
-            System.out.println("删除学生信息成功");
-        }
-        return null;
+    public boolean  delStudent(@PathVariable("sno") String  sno){
+
+        return stuSerImpl.delStudent(sno);
+
     }
 
 
