@@ -1,5 +1,6 @@
 package com.wocnz.stusys.controller;
 
+import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
 import com.wocnz.stusys.service.Impl.StudentSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,13 @@ public class studentCon {
     public boolean  delStudent(@PathVariable("sno") String  sno){
 
         return stuSerImpl.delStudent(sno);
+
+    }
+
+    @RequestMapping(value = "/findStudentByCon",method = RequestMethod.GET)
+    public Condition  findStudentByCon( Condition con){
+
+        return stuSerImpl.findAllStuByCon(con);
 
     }
 

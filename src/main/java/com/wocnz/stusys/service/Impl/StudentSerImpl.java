@@ -2,6 +2,7 @@ package com.wocnz.stusys.service.Impl;
 
 import com.wocnz.stusys.dao.impl.StudentDaoImpl;
 
+import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
 import com.wocnz.stusys.service.StudentSer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class StudentSerImpl implements StudentSer {
     public List<Student> findAllStu() {
 
         return studaoImpl.findAllStu();
+    }
+
+    @Override
+    public  Condition findAllStuByCon(Condition con) {
+        return studaoImpl.findAllStuByCon(con);
     }
 
     @Override

@@ -1,11 +1,14 @@
 package com.wocnz.stusys.service;
 
+import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
 
 import java.util.List;
 
 public interface StudentSer {
     public List<Student> findAllStu();
+
+    public  Condition findAllStuByCon(Condition con);
 
     public boolean addStudent(Student stu);
 

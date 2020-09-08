@@ -1,6 +1,7 @@
 package com.wocnz.stusys.dao.impl;
 
 import com.wocnz.stusys.dao.StudentDao;
+import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -28,6 +29,26 @@ public class StudentDaoImpl implements StudentDao {
         System.out.println(students);
 
         return students;
+    }
+
+    @Override
+    public  Condition findAllStuByCon(Condition con) {
+        System.out.println(con);
+        String sql="select * from student limit ?,? ";
+        int start=(con.getCurrentPage()-1)*con.getPageSize();
+        int size=con.getPageSize();
+        List<Student> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Student.class),start,size);
+        System.out.println(students);
+
+        String sql2="select count(*) from student";
+        Integer totalCount=jdbcTemplate.queryForObject(sql2,Integer.class);
+
+        Condition tem=new Condition();
+        tem.setData(students);
+        tem.setCurrentPage(con.getCurrentPage());
+        //设置总数
+        tem.setTotalCount(totalCount);
+        return tem;
     }
 
     /**
