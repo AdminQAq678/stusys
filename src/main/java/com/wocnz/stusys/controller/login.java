@@ -7,8 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class login {
     @RequestMapping("/login")
-    public Boolean index(){
-
+    public Boolean login(){
         System.out.println("login.html");
         return true;
     }
