@@ -1,6 +1,7 @@
 package com.wocnz.stusys.controller;
 
 
+import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Teacher;
 import com.wocnz.stusys.service.Impl.TeacherSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class teachercon {
     @RequestMapping(value = "/teacher/{tno}",method = RequestMethod.GET)
     public Teacher findStudentById(@PathVariable("tno") String tno){
 
-        return teaSerImpl.findStudentBytno(tno);
+        return teaSerImpl.findTeacherBytno(tno);
     }
 
     /**
@@ -69,5 +70,10 @@ public class teachercon {
         return teaSerImpl.delTeacher(tno);
     }
 
+    @RequestMapping(value = "/findTeacherByCon",method = RequestMethod.GET)
+    public Condition findStudentByCon(Condition con){
 
+        return teaSerImpl.findAllTeaByCon(con);
+
+    }
 }

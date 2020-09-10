@@ -1,6 +1,7 @@
 package com.wocnz.stusys.service.Impl;
 
 import com.wocnz.stusys.dao.impl.TeacherDaoImpl;
+import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Teacher;
 import com.wocnz.stusys.service.TeacherSer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,17 @@ public class TeacherSerImpl implements TeacherSer {
     }
 
     @Override
-    public Teacher findStudentBytno(String tno) {
+    public Teacher findTeacherBytno(String tno) {
         return teadDaoImpl.findTeacherBytno(tno);
     }
 
     @Override
     public Teacher updateTeacher(String tno, Teacher tea) {
         return teadDaoImpl.updateTeacher(tno,tea);
+    }
+
+    @Override
+    public Condition findAllTeaByCon(Condition con) {
+        return teadDaoImpl.findAllTeaByCon(con);
     }
 }

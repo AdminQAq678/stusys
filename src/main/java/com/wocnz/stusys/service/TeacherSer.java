@@ -1,5 +1,6 @@
 package com.wocnz.stusys.service;
 
+import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Teacher;
 
 import java.util.List;
@@ -11,8 +12,10 @@ public interface TeacherSer {
 
     public boolean delTeacher(String tno);
 
-    public Teacher findStudentBytno(String tno);
+    public Teacher findTeacherBytno(String tno);
 
     public Teacher updateTeacher(String tno, Teacher tea );
 
+
+    public Condition findAllTeaByCon(Condition con);
 }

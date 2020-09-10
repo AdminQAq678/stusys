@@ -1,6 +1,8 @@
 package com.wocnz.stusys.dao.impl;
 
 import com.wocnz.stusys.dao.TeacherDao;
+import com.wocnz.stusys.domain.Condition;
+import com.wocnz.stusys.domain.Student;
 import com.wocnz.stusys.domain.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -12,6 +14,26 @@ import java.util.List;
 public class TeacherDaoImpl implements TeacherDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    @Override
+    public Condition<Teacher> findAllTeaByCon(Condition con) {
+        System.out.println(con);
+        String sql="select * from teacher limit ?,? ";
+        int start=(con.getCurrentPage()-1)*con.getPageSize();
+        int size=con.getPageSize();
+        List<Teacher> teachers=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Teacher.class),start,size);
+        System.out.println(teachers);
+
+        String sql2="select count(*) from Teacher";
+        Integer totalCount=jdbcTemplate.queryForObject(sql2,Integer.class);
+
+        Condition tem=new Condition();
+        tem.setData(teachers);
+        tem.setCurrentPage(con.getCurrentPage());
+        //设置总数
+        tem.setTotalCount(totalCount);
+        return tem;
+    }
 
     @Override
     public List<Teacher> findAllTea() {

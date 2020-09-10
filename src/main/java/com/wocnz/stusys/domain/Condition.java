@@ -2,14 +2,14 @@ package com.wocnz.stusys.domain;
 
 import java.util.List;
 
-public class Condition {
+public class Condition<E> {
     private int currentPage;
     //每页显示的条数
     private int pageSize;
     //记录总数
     private int totalCount;
 
-    private List<Student> data;
+    private List<E>   data;
 
     @Override
     public String toString() {
@@ -45,11 +45,11 @@ public class Condition {
         this.totalCount = totalCount;
     }
 
-    public List<Student> getData() {
+    public List<E> getData() {
         return data;
     }
 
-    public void setData(List<Student> data) {
+    public void setData(List<E> data) {
         this.data = data;
     }
 }

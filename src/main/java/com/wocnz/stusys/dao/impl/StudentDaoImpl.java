@@ -32,7 +32,7 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public  Condition findAllStuByCon(Condition con) {
+    public  Condition<Student> findAllStuByCon(Condition con) {
         System.out.println(con);
         String sql="select * from student limit ?,? ";
         int start=(con.getCurrentPage()-1)*con.getPageSize();
@@ -111,7 +111,7 @@ public class StudentDaoImpl implements StudentDao {
          */
     @Override
     public Student updateStudent(String sno, Student stu) {
-        System.out.println(sno);
+        System.out.println(stu+"++++++++++");
         String sql="update student  set sname=?, ssex=?, sage=?, sdept=? where sno=?  ";
         System.out.println(sql);
         int cnt=0;
