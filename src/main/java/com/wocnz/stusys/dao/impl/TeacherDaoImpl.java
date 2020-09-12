@@ -2,7 +2,6 @@ package com.wocnz.stusys.dao.impl;
 
 import com.wocnz.stusys.dao.TeacherDao;
 import com.wocnz.stusys.domain.Condition;
-import com.wocnz.stusys.domain.Student;
 import com.wocnz.stusys.domain.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -48,6 +47,15 @@ public class TeacherDaoImpl implements TeacherDao {
         System.out.println(tea);
         String sql="insert into teacher values(?,?,?,?,?,?,?,?,?)";
         System.out.println(sql);
+        if(tea.getCno1().length()==0){
+            tea.setCno1(null);
+        }
+        if(tea.getCno2().length()==0){
+            tea.setCno2(null);
+        }
+        if(tea.getCno3().length()==0){
+            tea.setCno3(null);
+        }
         try{
             int cnt=jdbcTemplate.update(sql,tea.getTno(),tea.getTname(),tea.getTsex(),tea.getTage(),tea.getTeb(),tea.getTpt(),
             tea.getCno1(),tea.getCno2(),tea.getCno3());
@@ -58,7 +66,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
         }
         catch (Exception e){
-
+            e.printStackTrace();
             System.err.println("增加教师信息sql执行失败"+sql+tea);
             return false;
 

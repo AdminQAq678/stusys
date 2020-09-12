@@ -65,7 +65,7 @@ public class StudentDaoImpl implements StudentDao {
             jdbcTemplate.update(sql,stu.getSno(),stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept());
         }
         catch (Exception e){
-
+            e.printStackTrace();
             System.err.println("插入sql失败"+sql+stu);
             return false;
 

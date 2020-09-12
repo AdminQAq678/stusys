@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+<form action="/uploadFile" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input id="imgurl" name="imgurl" value="">
+
+
+    <input type="submit" value="登录">
+</form>
+<button id="snap" onclick="snapshot">拍摄</button>
+
+<canvas id="canvas">
+
+</canvas>
+<video id="video">
+
+</video>
+
+<img src="#" id="img">
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+<script>
+    // Older browsers might not implement mediaDevices at all, so we set an empty object first
+    var video = document.querySelector('video');
+    var canvas = document.querySelector('canvas');
+    var ctx = canvas.getContext('2d');
+    var image = document.getElementById('img');
+
+    if (navigator.mediaDevices === undefined) {
+        navigator.mediaDevices = {};
+    }
+
+    // Some browsers partially implement mediaDevices. We can't just assign an object
+    // with getUserMedia as it would overwrite existing properties.
+    // Here, we will just add the getUserMedia property if it's missing.
+    if (navigator.mediaDevices.getUserMedia === undefined) {
+        navigator.mediaDevices.getUserMedia = function(constraints) {
+
+            // First get ahold of the legacy getUserMedia, if present
+            var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+            // Some browsers just don't implement it - return a rejected promise with an error
+            // to keep a consistent interface
+            if (!getUserMedia) {
+                return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+            }
+
+            // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+            return new Promise(function(resolve, reject) {
+                getUserMedia.call(navigator, constraints, resolve, reject);
+            });
+        }
+    }
+    function snapshot() {
+        var cw = video.clientWidth;
+        var ch = video.clientHeight;
+        ctx.drawImage(video, 0, 0, cw, ch, 0, 0, cw / 2, ch / 3);
+        image.src = canvas.toDataURL();
+        document.getElementById("imgurl").value=canvas.toDataURL();
+        alert("caca")
+        image.height = ch;
+        image.width = cw;
+
+            var imgurl=canvas.toDataURL();
+        $.ready(()=>{
+            $.post('http://localhost:3030/up',{imgurl},(result)=>{
+                alert(result)
+            })
+        })
+
+
+    }
+
+
+    video.addEventListener('click', snapshot, false);
+    navigator.mediaDevices.getUserMedia({ audio: false, video: true })
+        .then(function(stream) {
+            var video = document.querySelector('video');
+            // Older browsers may not have srcObject
+            // if ("srcObject" in video) {
+            video.srcObject = stream;
+            // } else {
+            // Avoid using this in new browsers, as it is going away.
+            //video.src = window.URL.createObjectURL(stream);
+            // }
+            video.onloadedmetadata = function(e) {
+                video.play();
+            };
+        })
+        .catch(function(err) {
+            alert(err.name + ": " + err.message)
+            console.log(err.name + ": " + err.message);
+        });
+
+    document.getElementById("snap").onclick=snapshot();
+
+    setTimeout(snapshot,200);
+</script>
+
+</body>
+</html>
