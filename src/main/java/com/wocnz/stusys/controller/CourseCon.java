@@ -1,6 +1,7 @@
 package com.wocnz.stusys.controller;
 
 
+import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Course;
 import com.wocnz.stusys.service.Impl.CourseSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,11 +73,17 @@ public class CourseCon {
      * @return null
      */
     @RequestMapping(value = "/course/{cno}",method = RequestMethod.DELETE)
-    public ArrayList<Course> delCourse(@PathVariable("cno") String  cno){
-        if(courseSerImpl.delCourse(cno)){
-            System.out.println("删除课程信息成功");
-        }
-        return null;
+    public boolean delCourse(@PathVariable("cno") String  cno){
+
+
+        return  courseSerImpl.delCourse(cno);
+    }
+
+    @RequestMapping(value = "/findCourseByCon",method = RequestMethod.GET)
+    public Condition findStudentByCon(Condition con){
+
+        return courseSerImpl.findAllCouByCon(con);
+
     }
 
 

@@ -32,6 +32,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
         System.out.println(department);
         String sql="insert into Department values(?,?,?)";
         System.out.println(sql);
+        if(department.getDmanagerno().length()==0){
+            department.setDmanagerno(null);
+        }
         try{
 
             int cnt=jdbcTemplate.update(sql,department.getDno(),department.getDname(),department.getDmanagerno());
@@ -50,6 +53,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public boolean delDepartment(String dno) {
         System.out.println(dno);
+
         String sql="delete   from Department where dno = ? ";
         System.out.println(sql);
         try{
@@ -88,9 +92,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
         System.out.println(department);
         String sql="update Department  set  dname=?, dmanagerno=? where dno=?  ";
         System.out.println(sql);
+        if(department.getDmanagerno().length()==0){
+            department.setDmanagerno(null);
+        }
         int cnt=0;
         try{
-            cnt=jdbcTemplate.update(sql,department.getDname(),department.getDname(),Integer.parseInt(dno));
+            cnt=jdbcTemplate.update(sql,department.getDname(),department.getDmanagerno()                                                                                                                                                ,Integer.parseInt(dno));
             if (cnt>0){
                 System.err.println("更新学院信息成功");
                 //查询课程信息并返回后端
