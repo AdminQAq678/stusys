@@ -5,8 +5,15 @@ import com.wocnz.stusys.domain.Student;
 import com.wocnz.stusys.service.Impl.StudentSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @RestController
 public class studentCon {
@@ -87,6 +94,33 @@ public class studentCon {
 
         return stuSerImpl.findAllStuByCon(con);
 
+    }
+
+    @RequestMapping(value = "/addStuByFile" , method = RequestMethod.POST)
+    public String upload( MultipartFile file) throws IOException {
+        FileInputStream inputStream= (FileInputStream) file.getInputStream();
+        String s=new String(file.getBytes());
+//        System.out.println(s);
+
+        Scanner scanner=new Scanner(inputStream);
+
+
+
+        while (scanner.hasNext()){
+            //获取一行记录
+            String s1 = scanner.nextLine();
+            //,号分割
+            String[] t = s1.split(",");
+            Student student=new Student();
+            student.setSno(t[0]);
+            student.setSname(t[1]);
+            student.setSage(Integer.parseInt(t[2]));
+            student.setSsex(t[3]);
+            student.setSdept(t[4]);
+            stuSerImpl.addStudent(student);
+        }
+
+        return "";
     }
 
 

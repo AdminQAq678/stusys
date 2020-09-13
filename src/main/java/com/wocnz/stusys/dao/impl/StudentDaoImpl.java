@@ -3,6 +3,8 @@ package com.wocnz.stusys.dao.impl;
 import com.wocnz.stusys.dao.StudentDao;
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +19,7 @@ public class StudentDaoImpl implements StudentDao {
      */
     @Autowired
     JdbcTemplate jdbcTemplate;
-
+    Logger logger= LoggerFactory.getLogger("studao");
     /**
      *
      * @return
@@ -58,10 +60,12 @@ public class StudentDaoImpl implements StudentDao {
      */
     @Override
     public boolean addStudent(Student stu) {
-        System.out.println(stu);
+
+        logger.info(stu.toString());
         String sql="insert into student values(?,?,?,?,?)";
-        System.out.println(sql);
+//        System.out.println(sql);
         try{
+
             jdbcTemplate.update(sql,stu.getSno(),stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept());
         }
         catch (Exception e){
