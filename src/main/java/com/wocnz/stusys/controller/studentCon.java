@@ -1,17 +1,23 @@
 package com.wocnz.stusys.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
 import com.wocnz.stusys.service.Impl.StudentSerImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,6 +29,7 @@ public class studentCon {
      * @return
      */
 
+    ArrayList<Student> result=new ArrayList<>();
 
     @Autowired
     StudentSerImpl stuSerImpl;
@@ -57,8 +64,6 @@ public class studentCon {
         System.out.println(sno);
         System.out.println(stu);
         System.out.println("update");
-
-
         return  stuSerImpl.updateStudent(sno,stu);
     }
     /**
@@ -91,8 +96,9 @@ public class studentCon {
 
     @RequestMapping(value = "/findStudentByCon",method = RequestMethod.GET)
     public Condition  findStudentByCon( Condition con){
-
-        return stuSerImpl.findAllStuByCon(con);
+        Condition condition=stuSerImpl.findAllStuByCon(con);
+        result= (ArrayList<Student>) condition.getData();
+        return condition;
 
     }
 
@@ -121,6 +127,40 @@ public class studentCon {
         }
 
         return "";
+    }
+
+
+
+
+
+
+    @GetMapping("download")
+    public void download(HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码
+        String fileName = URLEncoder.encode("学生信息", "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), Student.class).sheet("模板").doWrite(data());
+    }
+
+    private List<Student> data() {
+        Logger logger= LoggerFactory.getLogger("stucon");
+        logger.info(result.toString());
+        List<Student> list = result;
+//        System.out.println("result+++++"+result);
+//        for (int i = 0; i < result.size(); i++) {
+//            Student data = new Student();
+//
+//            data.setSdept("asdd");
+//            data.setSno(result.get(i).getSno());
+//            data.setSname(result.get(i).getSname());
+//            data.setSsex(result.get(i).getSsex());
+//            data.setSage(result.get(i).getSage());
+//            data.setSdept(result.get(i).getSdept());
+//            list.add(data);
+//        }
+        return list;
     }
 
 

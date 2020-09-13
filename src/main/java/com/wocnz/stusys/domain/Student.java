@@ -1,5 +1,7 @@
 package com.wocnz.stusys.domain;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
 /**
  * 学生信息表（student）
  * 学号sno：char(9)
@@ -8,11 +10,20 @@ package com.wocnz.stusys.domain;
  * 年龄sage：int(4)     14≤sage≤24
  * 系别sdept：nvarchar(30)
  */
+
 public class Student {
+    /**
+     * ExcelProperty是easyexcel的注解
+     */
+    @ExcelProperty("学号")
     private String sno;
+    @ExcelProperty("姓名")
     private String sname;
+    @ExcelProperty("性别")
     private  String ssex;
+    @ExcelProperty("年龄")
     private int sage;
+    @ExcelProperty("系别")
     private String sdept;
 
     @Override
