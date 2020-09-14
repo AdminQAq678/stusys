@@ -19,7 +19,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     JdbcTemplate jdbcTemplate;
     @Override
     public List<Department> findAllDep() {
-        String sql="select * from Department";
+        String sql="select * from department";
         List<Department> departments=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Department.class));
         System.out.println(departments);
         return departments;
@@ -30,7 +30,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public boolean addDepartment(Department department) {
         System.out.println(department);
-        String sql="insert into Department values(?,?,?)";
+        String sql="insert into department values(?,?,?)";
         System.out.println(sql);
         if(department.getDmanagerno().length()==0){
             department.setDmanagerno(null);
@@ -54,7 +54,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public boolean delDepartment(String dno) {
         System.out.println(dno);
 
-        String sql="delete   from Department where dno = ? ";
+        String sql="delete   from department where dno = ? ";
         System.out.println(sql);
         try{
 
@@ -75,7 +75,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public Department findDepartmentByDno(String dno) {
-        String sql2="select *from Department where dno = ?";
+        String sql2="select *from department where dno = ?";
 
         try {
             Department ret=jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(Department.class),dno);
@@ -90,7 +90,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public Department updateDepartment(String dno, Department department) {
         System.out.println(department);
-        String sql="update Department  set  dname=?, dmanagerno=? where dno=?  ";
+        String sql="update department  set  dname=?, dmanagerno=? where dno=?  ";
         System.out.println(sql);
         if(department.getDmanagerno().length()==0){
             department.setDmanagerno(null);

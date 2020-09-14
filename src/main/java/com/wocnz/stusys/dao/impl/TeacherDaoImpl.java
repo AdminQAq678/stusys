@@ -23,7 +23,7 @@ public class TeacherDaoImpl implements TeacherDao {
         List<Teacher> teachers=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Teacher.class),start,size);
         System.out.println(teachers);
 
-        String sql2="select count(*) from Teacher";
+        String sql2="select count(*) from teacher";
         Integer totalCount=jdbcTemplate.queryForObject(sql2,Integer.class);
 
         Condition tem=new Condition();

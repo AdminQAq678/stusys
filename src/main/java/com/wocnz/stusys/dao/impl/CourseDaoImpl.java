@@ -18,7 +18,7 @@ public class CourseDaoImpl implements CourseDao {
     JdbcTemplate jdbcTemplate;
     @Override
     public List<Course> findAllCou() {
-        String sql="select * from Course";
+        String sql="select * from course";
         List<Course> courses=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Course.class));
         System.out.println(courses);
         return courses;
@@ -34,7 +34,7 @@ public class CourseDaoImpl implements CourseDao {
         List<Course> courses=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Course.class),start,size);
         System.out.println(courses);
 
-        String sql2="select count(*) from Course";
+        String sql2="select count(*) from course";
         Integer totalCount=jdbcTemplate.queryForObject(sql2,Integer.class);
 
         Condition tem=new Condition();
@@ -48,7 +48,7 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public boolean addCourse(Course cou) {
         System.out.println(cou);
-        String sql="insert into Course values(?,?,?,?)";
+        String sql="insert into course values(?,?,?,?)";
         System.out.println(sql);
         try{
 
@@ -68,7 +68,7 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public boolean delCourse(String cno) {
         System.out.println(cno);
-        String sql="delete   from Course where cno = ? ";
+        String sql="delete   from course where cno = ? ";
         System.out.println(sql);
         try{
 
@@ -89,7 +89,7 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public Course findCourseByCno(String cno) {
-        String sql2="select *from Course where cno = ?";
+        String sql2="select *from course where cno = ?";
 
         try {
             Course ret=jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(Course.class),cno);
@@ -106,7 +106,7 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public Course updateCourse(String cno, Course cou) {
         System.out.println(cou);
-        String sql="update Course  set Cname=?, Cpno=?, Ccredit=? where cno=?  ";
+        String sql="update course  set Cname=?, Cpno=?, Ccredit=? where cno=?  ";
         System.out.println(sql);
         int cnt=0;
         try{
