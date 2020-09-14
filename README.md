@@ -50,7 +50,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 ✔添加下载信息功能
 
 添加登录功能
-添加token鉴权功能
+✔添加token鉴权功能
 
 
 
