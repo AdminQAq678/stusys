@@ -106,7 +106,7 @@ public class TeacherDaoImpl implements TeacherDao {
     @Override
     public Teacher updateTeacher(String tno, Teacher tea) {
         System.out.println(tno);
-        String sql="update teacher  set tname=?, tsex=?, tage=?, teb=? ,tpt=?, cno1=?, cno2=?,cno3=?.passwd=? where tno=?  ";
+        String sql="update teacher  set tname=?, tsex=?, tage=?, teb=? ,tpt=?, cno1=?, cno2=?,cno3=?,passwd=? where tno=?  ";
         System.out.println(sql);
 
         try{
