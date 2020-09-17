@@ -22,6 +22,16 @@ public class Teacher {
     private String cno1;
     private String cno2;
     private String cno3;
+
+    private String passwd;
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
     @Override
     public String toString() {
         return "teacher{" +

@@ -52,5 +52,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
 添加登录功能
 ✔添加token鉴权功能
 
+#2020/9/17
+
+✔添加学生及教师注册接口，即student 和teacher的post接口
+
+todo :
+    添加登录注册接口
+
+##增加教师个人教授课程
+通过输入（选择）教师名称，以及课程实现增加
+
+###教师所授课程的显示
+通过便利连接teascourse 和course和teacher表进行显示
+
+#学生选课逻辑
+根据显示的课程列表进行选课，一门课只能选择一次，需要将学生学号及课程号共同作为主键
+在sct表中添加学生学生学号、cno和tno通过表teascourses来插入
+
 
 

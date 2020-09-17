@@ -45,7 +45,7 @@ public class TeacherDaoImpl implements TeacherDao {
     @Override
     public boolean addTeacher(Teacher tea) {
         System.out.println(tea);
-        String sql="insert into teacher values(?,?,?,?,?,?,?,?,?)";
+        String sql="insert into teacher values(?,?,?,?,?,?,?,?,?,?)";
         System.out.println(sql);
         if(tea.getCno1().length()==0){
             tea.setCno1(null);
@@ -58,7 +58,7 @@ public class TeacherDaoImpl implements TeacherDao {
         }
         try{
             int cnt=jdbcTemplate.update(sql,tea.getTno(),tea.getTname(),tea.getTsex(),tea.getTage(),tea.getTeb(),tea.getTpt(),
-            tea.getCno1(),tea.getCno2(),tea.getCno3());
+            tea.getCno1(),tea.getCno2(),tea.getCno3(),tea.getPasswd());
             if(cnt>0){
                 System.out.println("增加教师信息成功");
                 return true;
@@ -106,12 +106,12 @@ public class TeacherDaoImpl implements TeacherDao {
     @Override
     public Teacher updateTeacher(String tno, Teacher tea) {
         System.out.println(tno);
-        String sql="update teacher  set tname=?, tsex=?, tage=?, teb=? ,tpt=?, cno1=?, cno2=?,cno3=? where tno=?  ";
+        String sql="update teacher  set tname=?, tsex=?, tage=?, teb=? ,tpt=?, cno1=?, cno2=?,cno3=?.passwd=? where tno=?  ";
         System.out.println(sql);
 
         try{
            int  cnt=jdbcTemplate.update(sql,tea.getTname(),tea.getTsex(),tea.getTage(),tea.getTeb(),tea.getTpt(),
-                    tea.getCno1(),tea.getCno2(),tea.getCno3(),Integer.parseInt(tno));
+                    tea.getCno1(),tea.getCno2(),tea.getCno3(), tea.getPasswd(),Integer.parseInt(tno));
             if (cnt>0){
                 System.err.println("更新教师信息成功");
                 //查询教师信息并返回后端

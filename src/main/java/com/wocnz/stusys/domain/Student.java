@@ -26,6 +26,16 @@ public class Student {
     @ExcelProperty("系别")
     private String sdept;
 
+    private String passwd;
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
+
     @Override
     public String toString() {
         return "student{" +

@@ -62,11 +62,11 @@ public class StudentDaoImpl implements StudentDao {
     public boolean addStudent(Student stu) {
 
         logger.info(stu.toString());
-        String sql="insert into student values(?,?,?,?,?)";
+        String sql="insert into student values(?,?,?,?,?,?)";
 //        System.out.println(sql);
         try{
 
-            jdbcTemplate.update(sql,stu.getSno(),stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept());
+            jdbcTemplate.update(sql,stu.getSno(),stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -116,11 +116,11 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public Student updateStudent(String sno, Student stu) {
         System.out.println(stu+"++++++++++");
-        String sql="update student  set sname=?, ssex=?, sage=?, sdept=? where sno=?  ";
+        String sql="update student  set sname=?, ssex=?, sage=?, sdept=?,passwd=? where sno=?  ";
         System.out.println(sql);
         int cnt=0;
         try{
-            cnt=jdbcTemplate.update(sql,stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),Integer.parseInt(sno));
+            cnt=jdbcTemplate.update(sql,stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd(),Integer.parseInt(sno));
             if (cnt>0){
                 System.err.println("更新学生信息成功");
                 //查询学生信息并返回后端
