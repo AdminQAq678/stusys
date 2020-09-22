@@ -15,5 +15,12 @@ public class ClassInfoSerImpl implements ClassInfoSer {
     @Override
     public List<ClassInfo> findAllClInfo() {
         return classInfoDaoImpl.findAllClInfo();
+
     }
+
+    @Override
+    public List<ClassInfo> findTeasCourse() {
+        return classInfoDaoImpl.findTeasCourse();
+    }
+
 }

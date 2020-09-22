@@ -1,12 +1,10 @@
-package com.wocnz.stusys.dao;
+package com.wocnz.stusys.service;
 
-
-import com.wocnz.stusys.domain.Department;
 import com.wocnz.stusys.domain.Sct;
 
 import java.util.List;
 
-public interface SctDao {
+public interface SctSer {
     public List<Sct> findAllSct();
 
     public boolean addSct(Sct sct);

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ClassInfoSer {
     public List<ClassInfo> findAllClInfo();
+    public List<ClassInfo> findTeasCourse();
 }

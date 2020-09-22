@@ -1,5 +1,7 @@
 package com.wocnz.stusys.domain;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 选课信息表（sct）
  * 学号sno：char(9)
@@ -7,6 +9,7 @@ package com.wocnz.stusys.domain;
  * 教工号tno：char(8)
  * 成绩grade：int(4)
  */
+@Component
 public class Sct {
 
     private String sno;

@@ -11,4 +11,5 @@ import java.util.List;
 public interface ClassInfoDao {
     public List<ClassInfo> findAllClInfo();
 
+    public List<ClassInfo> findTeasCourse();
 }

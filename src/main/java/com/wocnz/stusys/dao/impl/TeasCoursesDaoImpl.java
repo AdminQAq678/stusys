@@ -106,7 +106,7 @@ public class TeasCoursesDaoImpl implements TeasCoursesDao {
     public TeasCourses update(String cno, TeasCourses tcs) {
         System.out.println(cno);
         String sql="update teasCourses  set tno=? ,cno=? where  cno=?  ";
-        System.out.println(sql+"++++++++++++++"+tcs.getCno()+"============"+tcs.getTno());
+
 
         try{
             int  cnt=jdbcTemplate.update(sql,tcs.getTno(),tcs.getCno(),cno);
