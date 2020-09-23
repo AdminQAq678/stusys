@@ -1,7 +1,12 @@
 package com.wocnz.stusys.domain;
 
+/**
+ * 教师授课信息实体类
+ */
 public class TeasCourses {
+    //教师编号
     private String tno;
+    //课程编号
     private String cno;
 
     public String getCno() {

@@ -16,36 +16,48 @@ import java.util.List;
 public class StudentDaoImpl implements StudentDao {
     /**
      * jdbc模板
+     * 用于执行sql语句
      */
     @Autowired
     JdbcTemplate jdbcTemplate;
-    Logger logger= LoggerFactory.getLogger("studao");
+
+    Logger logger= LoggerFactory.getLogger("studao");//日志
     /**
-     *
-     * @return
+     * 查询所有的学生信息
+     * @return List<Student>
      */
     @Override
     public List<Student> findAllStu() {
         String sql="select * from student";
         List<Student> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Student.class));
         System.out.println(students);
-
         return students;
     }
 
+    /**
+     * 分页查询学生信息，
+     * @param con
+     * @return Condition<Student>
+     */
     @Override
     public  Condition<Student> findAllStuByCon(Condition con) {
         System.out.println(con);
+        //分页查询sql
         String sql="select * from student limit ?,? ";
+        //开始的位置
         int start=(con.getCurrentPage()-1)*con.getPageSize();
+        //查询的条数
         int size=con.getPageSize();
+        //执行sql
         List<Student> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Student.class),start,size);
         System.out.println(students);
 
         String sql2="select count(*) from student";
+        //查询学生的数量，返回一个整型数
         Integer totalCount=jdbcTemplate.queryForObject(sql2,Integer.class);
 
         Condition tem=new Condition();
+        //设置返回的前端的数据data
         tem.setData(students);
         tem.setCurrentPage(con.getCurrentPage());
         //设置总数
@@ -70,7 +82,7 @@ public class StudentDaoImpl implements StudentDao {
         }
         catch (Exception e){
             e.printStackTrace();
-            System.err.println("插入sql失败"+sql+stu);
+            System.err.println("添加学生信息sql失败"+sql+stu);
             return false;
 
         }
@@ -89,17 +101,23 @@ public class StudentDaoImpl implements StudentDao {
         String sql="delete   from student where sno = ? ";
         System.out.println(sql);
         try{
+            //add、delete、update 三种sql 都是使用jdbcTemplate.update去执行
             jdbcTemplate.update(sql,Integer.parseInt(sno));
         }
         catch (Exception e){
 
-            System.err.println("插入sql失败"+sql+" "+sno);
+            System.err.println("删除学生信息sql失败"+sql+" "+sno);
             return false;
 
         }
         return true;
     }
 
+    /**
+     * 通过学号查询学生信息
+     * @param sno
+     * @return
+     */
     @Override
     public Student findStudentBySno(String sno) {
         String sql2="select *from student where sno = ?";
@@ -115,7 +133,7 @@ public class StudentDaoImpl implements StudentDao {
          */
     @Override
     public Student updateStudent(String sno, Student stu) {
-        System.out.println(stu+"++++++++++");
+//        System.out.println(stu+"++++++++++");
         String sql="update student  set sname=?, ssex=?, sage=?, sdept=?,passwd=? where sno=?  ";
         System.out.println(sql);
         int cnt=0;

@@ -1,7 +1,6 @@
 package com.wocnz.stusys.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.wocnz.stusys.awt.UserLoginToken;
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
 import com.wocnz.stusys.service.Impl.StudentSerImpl;
@@ -13,12 +12,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
-import java.io.FileReader;
+
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,16 +28,19 @@ public class studentCon {
      * @param sno
      * @return
      */
-
     ArrayList<Student> result=new ArrayList<>();
-
+    /**
+     * 自动注入（获得StudentSerImpl类的对象)
+     */
     @Autowired
     StudentSerImpl stuSerImpl;
 
+    /**
+     * 查询所有学生信息接口
+     * @return
+     */
     @RequestMapping("/findAllStu")
     public List<Student> findAllStu(){
-
-
         return stuSerImpl.findAllStu();
     }
 
@@ -95,6 +97,11 @@ public class studentCon {
 
     }
 
+    /**
+     * 分页查询接口
+     * @param con
+     * @return
+     */
     @RequestMapping(value = "/findStudentByCon",method = RequestMethod.GET)
     public Condition  findStudentByCon( Condition con){
         Condition condition=stuSerImpl.findAllStuByCon(con);
@@ -103,16 +110,19 @@ public class studentCon {
 
     }
 
+    /**
+     * 上传txt文件添加学生信息
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/addStuByFile" , method = RequestMethod.POST)
     public String upload( MultipartFile file) throws IOException {
+        //file是前端上传的文件，
         FileInputStream inputStream= (FileInputStream) file.getInputStream();
         String s=new String(file.getBytes());
-//        System.out.println(s);
-
         Scanner scanner=new Scanner(inputStream);
-
-
-
+        //读取每一行记录
         while (scanner.hasNext()){
             //获取一行记录
             String s1 = scanner.nextLine();
@@ -126,15 +136,14 @@ public class studentCon {
             student.setSdept(t[4]);
             stuSerImpl.addStudent(student);
         }
-
         return "";
     }
 
-
-
-
-
-
+    /**
+     * 下载学生信息接口
+     * @param response
+     * @throws IOException
+     */
     @GetMapping("download")
     public void download(HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
@@ -145,22 +154,15 @@ public class studentCon {
         EasyExcel.write(response.getOutputStream(), Student.class).sheet("模板").doWrite(data());
     }
 
+    /**
+     * 获取学生的信息列表供download 接口写到前端
+     * @return
+     */
     private List<Student> data() {
-        Logger logger= LoggerFactory.getLogger("stucon");
+
+        Logger logger= LoggerFactory.getLogger("stucon");//获得日志，作用类似system.out.priontln()
         logger.info(result.toString());
         List<Student> list = result;
-//        System.out.println("result+++++"+result);
-//        for (int i = 0; i < result.size(); i++) {
-//            Student data = new Student();
-//
-//            data.setSdept("asdd");
-//            data.setSno(result.get(i).getSno());
-//            data.setSname(result.get(i).getSname());
-//            data.setSsex(result.get(i).getSsex());
-//            data.setSage(result.get(i).getSage());
-//            data.setSdept(result.get(i).getSdept());
-//            list.add(data);
-//        }
         return list;
     }
 

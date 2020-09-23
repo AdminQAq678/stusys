@@ -2,13 +2,17 @@ package com.wocnz.stusys.domain;
 
 import java.util.List;
 
+/**
+ * 分页查询对象
+ * @param <E>
+ */
 public class Condition<E> {
     private int currentPage;
     //每页显示的条数
     private int pageSize;
     //记录总数
     private int totalCount;
-
+    //数据
     private List<E>   data;
 
     @Override
