@@ -10,6 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+/**
+ * AI功能接口类
+ */
 @RestController
 public class AICon {
     @Autowired

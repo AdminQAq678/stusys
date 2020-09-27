@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 显示学生已选课程类
+ */
 @RestController
 public class ClassInfoCon {
 

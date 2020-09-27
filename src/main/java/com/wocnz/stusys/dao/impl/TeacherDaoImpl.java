@@ -99,8 +99,12 @@ public class TeacherDaoImpl implements TeacherDao {
     @Override
     public Teacher findTeacherBytno(String tno) {
         String sql2="select *from teacher where tno = ?";
-        return  jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(Teacher.class),tno);
-
+        try {
+            return jdbcTemplate.queryForObject(sql2, new BeanPropertyRowMapper<>(Teacher.class), tno);
+        }catch (Exception e){
+            System.out.println("查询编号为"+tno+"的教师信息失败");
+            return null;
+        }
     }
 
     @Override

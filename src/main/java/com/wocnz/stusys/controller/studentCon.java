@@ -1,6 +1,7 @@
 package com.wocnz.stusys.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.wocnz.stusys.awt.UserLoginToken;
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
 import com.wocnz.stusys.service.Impl.StudentSerImpl;
@@ -21,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 学生信息增删查改及文件上传、下载
+ */
+
 @RestController
 public class studentCon {
     /**
@@ -32,6 +37,7 @@ public class studentCon {
     /**
      * 自动注入（获得StudentSerImpl类的对象)
      */
+
     @Autowired
     StudentSerImpl stuSerImpl;
 
@@ -39,6 +45,7 @@ public class studentCon {
      * 查询所有学生信息接口
      * @return
      */
+
     @RequestMapping("/findAllStu")
     public List<Student> findAllStu(){
         return stuSerImpl.findAllStu();
@@ -102,6 +109,8 @@ public class studentCon {
      * @param con
      * @return
      */
+
+    @UserLoginToken
     @RequestMapping(value = "/findStudentByCon",method = RequestMethod.GET)
     public Condition  findStudentByCon( Condition con){
         Condition condition=stuSerImpl.findAllStuByCon(con);

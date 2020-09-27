@@ -2,13 +2,15 @@ package com.wocnz.stusys.controller;
 
 import com.wocnz.stusys.dao.impl.TeasCoursesDaoImpl;
 import com.wocnz.stusys.domain.Condition;
-import com.wocnz.stusys.domain.Teacher;
 import com.wocnz.stusys.domain.TeasCourses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 教师授课信息的增删查改
+ */
 @RestController
 public class TeasCoursesCon {
     @Autowired

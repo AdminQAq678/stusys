@@ -2,7 +2,6 @@ package com.wocnz.stusys.controller;
 
 
 import com.wocnz.stusys.domain.Department;
-import com.wocnz.stusys.domain.Teacher;
 import com.wocnz.stusys.service.Impl.DepartmentSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+/**
+ * 学院信息的增删查改
+ */
 @RestController
 public class DepartmentCon {
     @Autowired
@@ -69,6 +71,8 @@ public class DepartmentCon {
     public boolean delDepartment(@PathVariable("dno") String dno){
         return departmentSerImpl.delDepartment(dno);
     }
+
+
 
 
 }

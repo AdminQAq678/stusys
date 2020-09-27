@@ -1,5 +1,9 @@
 package com.wocnz.stusys.domain;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
+import java.util.Objects;
+
 public class Teacher {
     /**
      *
@@ -13,16 +17,25 @@ public class Teacher {
     主讲课程二cno2: char(6)
     主讲课程三cno3: char(6)
      */
+    @ExcelProperty("教工号")
     private String tno;
+    @ExcelProperty("姓名")
     private String tname;
+    @ExcelProperty("性别")
     private String tsex;
+    @ExcelProperty("年龄")
     private int tage;
+    @ExcelProperty("学历")
     private String teb;
+    @ExcelProperty("职称")
     private String tpt;
+    @ExcelProperty("主修课程1")
     private String cno1;
+    @ExcelProperty("主修课程2")
     private String cno2;
+    @ExcelProperty("主修课程3")
     private String cno3;
-
+    @ExcelProperty("密码")
     private String passwd;
 
     public String getPasswd() {
@@ -32,9 +45,10 @@ public class Teacher {
     public void setPasswd(String passwd) {
         this.passwd = passwd;
     }
+
     @Override
     public String toString() {
-        return "teacher{" +
+        return "Teacher{" +
                 "tno='" + tno + '\'' +
                 ", tname='" + tname + '\'' +
                 ", tsex='" + tsex + '\'' +
@@ -44,7 +58,16 @@ public class Teacher {
                 ", cno1='" + cno1 + '\'' +
                 ", cno2='" + cno2 + '\'' +
                 ", cno3='" + cno3 + '\'' +
+                ", passwd='" + passwd + '\'' +
                 '}';
+    }
+
+
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(passwd);
     }
 
     public String getTno() {

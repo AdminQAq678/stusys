@@ -1,4 +1,7 @@
 package com.wocnz.stusys.domain;
+
+import com.alibaba.excel.annotation.ExcelProperty;
+
 /**
  * 课程信息表（course）
  * 课程号cno：char(6)
@@ -7,10 +10,13 @@ package com.wocnz.stusys.domain;
  * 学分ccredit：smallint(2)
  */
 public class Course {
-
+    @ExcelProperty("课程号")
     private String cno;
+    @ExcelProperty("课程名")
     private String cname;
+    @ExcelProperty("先修课程号")
     private String cpno;
+    @ExcelProperty("学分")
     private String ccredit;
 
     @Override

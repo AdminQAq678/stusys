@@ -121,8 +121,14 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public Student findStudentBySno(String sno) {
         String sql2="select *from student where sno = ?";
-        Student ret=jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(Student.class),sno);
-        return ret;
+        try{
+            Student ret=jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(Student.class),sno);
+            return ret;
+        }catch (Exception e){
+            System.out.println("查询编号为"+sno+"的学生信息失败");
+        return null;
+    }
+
     }
 
         /**

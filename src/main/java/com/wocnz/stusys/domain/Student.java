@@ -38,12 +38,13 @@ public class Student {
 
     @Override
     public String toString() {
-        return "student{" +
+        return "Student{" +
                 "sno='" + sno + '\'' +
                 ", sname='" + sname + '\'' +
                 ", ssex='" + ssex + '\'' +
                 ", sage=" + sage +
                 ", sdept='" + sdept + '\'' +
+                ", passwd='" + passwd + '\'' +
                 '}';
     }
 
