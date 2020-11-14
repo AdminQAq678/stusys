@@ -2,7 +2,9 @@ package com.wocnz.stusys.dao;
 
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 public interface StudentDao {
@@ -17,4 +19,9 @@ public interface StudentDao {
     public Student findStudentBySno(String sno);
 
     public Student updateStudent(String sno, Student stu );
+
+    public boolean uploadImage(String uid, String imgurl);
+
+
+    public File getHeadImage(String uid);
 }

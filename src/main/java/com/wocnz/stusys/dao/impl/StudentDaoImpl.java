@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.sql.Blob;
 import java.util.List;
 
 @Repository
@@ -158,6 +161,29 @@ public class StudentDaoImpl implements StudentDao {
 
         }
         return null;
+    }
+
+    @Override
+    public boolean uploadImage(String uid, String imgurl) {
+//        String sql="insert into images values(?,?) ";
+        String sql="update images set imageurl=? where id=?";
+       int cnt=jdbcTemplate.update(sql,imgurl,uid);
+       if(cnt>0){
+           logger.info("图片路径保存成功");
+           return true;
+       }
+        logger.info("图片路径保存失败");
+        return false;
+    }
+
+    @Override
+    public File getHeadImage(String uid) {
+        System.out.println(uid);
+        String sql="select imageurl from images where id = ? ";
+        //注意queryForObject的参数，应该先传入sql语句、返回类型，再传入参数
+        String res=(String) jdbcTemplate.queryForObject(sql,String.class,uid);
+        System.out.println("文件路径"+res);
+        return new File(res);
     }
 
 

@@ -7,7 +7,9 @@ import com.wocnz.stusys.domain.Student;
 import com.wocnz.stusys.service.StudentSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @Service
@@ -49,5 +51,15 @@ public class StudentSerImpl implements StudentSer {
     public Student updateStudent(String sno, Student stu) {
 
         return studaoImpl.updateStudent( sno,stu);
+    }
+
+    @Override
+    public boolean uploadImage(String uid, String imgurl){
+        return studaoImpl.uploadImage(uid,imgurl);
+    }
+
+    @Override
+    public File getHeadImage(String uid) {
+        return studaoImpl.getHeadImage(uid);
     }
 }

@@ -2,7 +2,9 @@ package com.wocnz.stusys.service;
 
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 public interface StudentSer {
@@ -18,4 +20,9 @@ public interface StudentSer {
 
     public Student updateStudent(String sno, Student stu );
 
+    public boolean uploadImage(String uid, String imgurl);
+
+
+
+    public File getHeadImage(String uid);
 }

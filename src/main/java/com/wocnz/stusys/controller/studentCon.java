@@ -11,15 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-
-import java.io.IOException;
+import javax.websocket.server.PathParam;
+import java.io.*;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -129,7 +130,8 @@ public class studentCon {
     public String upload( MultipartFile file) throws IOException {
         //file是前端上传的文件，
         FileInputStream inputStream= (FileInputStream) file.getInputStream();
-        String s=new String(file.getBytes());
+        file.getBytes();
+
         Scanner scanner=new Scanner(inputStream);
         //读取每一行记录
         while (scanner.hasNext()){
@@ -174,6 +176,80 @@ public class studentCon {
         List<Student> list = result;
         return list;
     }
+
+    @PostMapping("/uploadImage")
+    public  String  uploadImage(HttpServletRequest httpServletRequest,MultipartFile file)  {
+        File f=null;
+        FileOutputStream fos=null;
+        FileInputStream fis=null;
+        String imgUrl=null;
+        String uid=null;
+        byte b[]=new byte[1024];
+        int bb=0;
+
+        if(file.getContentType().indexOf("jpeg")!=-1){
+            imgUrl="head"+System.currentTimeMillis()+".jpg";
+            f=new File(imgUrl);
+        }else{
+            imgUrl="head"+System.currentTimeMillis()+".png";
+            f=new File(imgUrl);
+
+        }
+        //如果文件不存在则创建文件
+        if(!f.exists()){
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            fos=new FileOutputStream(f);
+            fis= (FileInputStream) file.getInputStream();
+            //写文件
+            while((bb=fis.read(b))!=-1){
+                fos.write(b,0,b.length);
+            }
+            //保存文件路径到数据库
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return f.getAbsolutePath();
+    }
+
+    @RequestMapping(value="/saveImageUrl",method = RequestMethod.POST)
+    public  boolean  saveImgeUrl(@RequestBody Map<String,String> imageUrl){
+
+        System.out.println(imageUrl);
+        return stuSerImpl.uploadImage(imageUrl.get("uid"),imageUrl.get("imageUrl"));
+    }
+
+
+    @RequestMapping(value="/getHeadImage")
+    public  void  getHeadImage(HttpServletResponse response,String uid){
+        System.out.println("uid"+uid);
+        File file=stuSerImpl.getHeadImage(uid);
+        byte b[]=new byte[1024];
+        int bb=0;
+        try {
+            FileInputStream fis=new FileInputStream(file);
+            while((bb=fis.read(b))!=-1){
+                response.getOutputStream().write(b,0,b.length);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ;
+    }
+
 
 
 }
