@@ -25,6 +25,9 @@ public class CourseDaoImpl implements CourseDao {
 
     }
 
+
+
+
     @Override
     public Condition findAllStuByCon(Condition con) {
         System.out.println(con);
@@ -47,6 +50,9 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public boolean addCourse(Course cou) {
+        if (cou.getCpno()==""){
+            cou.setCpno(null);
+        }
         System.out.println(cou);
         String sql="insert into course values(?,?,?,?)";
         System.out.println(sql);

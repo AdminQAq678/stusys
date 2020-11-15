@@ -37,8 +37,8 @@ public class login {
         System.out.println("欢迎登录");
         System.out.println(userno+passwd);
         System.out.println(userno.substring(2));
-        if(userno.substring(0,3).equals("tea")){
-            System.out.println("老师登录");
+        if(userno.indexOf("stu")==-1){//不是学生登录
+            System.out.println("老师或者管理员登录");
             Teacher t=teacherSer.findTeacherBytno(userno);
             if(t==null){
 
@@ -97,20 +97,26 @@ public class login {
     public ArrayList<String> getMenuList (String uid){
         ArrayList<String> arrayList=new ArrayList<>();
         if(uid.indexOf("stu")!=-1){
-
+            arrayList.add("/index");
+            arrayList.add("el-icon-s-home");//图标
+            arrayList.add("首页");
             arrayList.add("/sct");
             arrayList.add("iconfont icon-kecheng");//图标
             arrayList.add("学生已选课程");
 
-            arrayList.add("/course");
-            arrayList.add("iconfont icon-_huabanfuben");
-            arrayList.add("课程信息");
+//            arrayList.add("/course");
+//            arrayList.add("iconfont icon-_huabanfuben");
+//            arrayList.add("课程信息");
 
             arrayList.add("/selectCourse");
             arrayList.add("iconfont icon-xuanke");
             arrayList.add("选课");
 
         }else if(uid.indexOf("tea")!=-1){
+            arrayList.add("/index");
+            arrayList.add("el-icon-s-home");//图标
+            arrayList.add("首页");
+
             arrayList.add("/course");
             arrayList.add("iconfont icon-_huabanfuben");
             arrayList.add("课程信息");
@@ -121,6 +127,10 @@ public class login {
             arrayList.add("我的授课");
 
         }else{
+            arrayList.add("/index");
+            arrayList.add("el-icon-s-home");//图标
+            arrayList.add("首页");
+
             arrayList.add("/student");//学生
             arrayList.add("iconfont icon-xuesheng");//图标
             arrayList.add("学生信息");

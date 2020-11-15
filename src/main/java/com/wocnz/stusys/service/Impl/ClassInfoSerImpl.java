@@ -23,4 +23,9 @@ public class ClassInfoSerImpl implements ClassInfoSer {
         return classInfoDaoImpl.findTeasCourse();
     }
 
+    @Override
+    public List<ClassInfo> findClInfosBySno(String sno) {
+        return classInfoDaoImpl.findClInfosBySno(sno);
+    }
+
 }

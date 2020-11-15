@@ -81,8 +81,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
                 // 验证 token
                 JWTVerifier jwtVerifier;
-                //教师登录
-                if(userId.substring(0,3).equals("tea")){
+                //教师或者管理员登录
+                if(userId.indexOf("stu")==-1){
                     tea=teacherSer.findTeacherBytno(userId);
                     jwtVerifier= JWT.require(Algorithm.HMAC256(tea.getPasswd())).build();
                 }else

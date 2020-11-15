@@ -39,4 +39,15 @@ public class ClassInfoDaoImpl implements ClassInfoDao {
     }
 
 
+    @Override
+    public List<ClassInfo> findClInfosBySno(String sno) {
+        //System.out.println("idid"+sno);
+        String sql="select a.sno,a.sname,b.cno,b.cname,b.cpno,b.ccredit,c.tno,c.tname,d.grade" +
+                " from student  a,course b ,teacher c,sct d where a.sno=d.sno and b.cno=" +
+                "d.cno and c.tno=d.tno and a.sno = ? ";
+        //System.out.println("查询到的课程信息"+jdbcTemplate.query(sql,new BeanPropertyRowMapper<ClassInfo>(ClassInfo.class),sno));
+        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<ClassInfo>(ClassInfo.class),sno);
+    }
+
+
 }

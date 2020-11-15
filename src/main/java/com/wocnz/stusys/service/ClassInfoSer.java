@@ -10,4 +10,5 @@ import java.util.List;
 public interface ClassInfoSer {
     public List<ClassInfo> findAllClInfo();
     public List<ClassInfo> findTeasCourse();
+    public List<ClassInfo> findClInfosBySno(String sno);
 }

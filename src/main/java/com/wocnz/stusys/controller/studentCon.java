@@ -236,34 +236,6 @@ public class studentCon {
         return f.getAbsolutePath();
     }
 
-    @RequestMapping(value="/saveImageUrl",method = RequestMethod.POST)
-    public  boolean  saveImgeUrl(@RequestBody Map<String,String> imageUrl){
-
-        System.out.println(imageUrl);
-        return stuSerImpl.uploadImage(imageUrl.get("uid"),imageUrl.get("imageUrl"));
-    }
-
-
-    @RequestMapping(value="/getHeadImage")
-    public  void  getHeadImage(HttpServletResponse response,String uid){
-        System.out.println("uid"+uid);
-        File file=stuSerImpl.getHeadImage(uid);
-        byte b[]=new byte[1024];
-        int bb=0;
-        try {
-            FileInputStream fis=new FileInputStream(file);
-            while((bb=fis.read(b))!=-1){
-                response.getOutputStream().write(b,0,b.length);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("无该用户头像");
-            //e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return ;
-    }
 
 
 

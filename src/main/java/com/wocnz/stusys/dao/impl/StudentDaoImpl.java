@@ -91,7 +91,7 @@ public class StudentDaoImpl implements StudentDao {
             jdbcTemplate.update(sql,stu.getSno(),stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd());
         }
         catch (Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
             System.err.println("添加学生信息sql失败"+sql+stu);
             return false;
 
@@ -117,7 +117,7 @@ public class StudentDaoImpl implements StudentDao {
         try{
             //add、delete、update 三种sql 都是使用jdbcTemplate.update去执行
             jdbcTemplate.update(sql,sno);
-            jdbcTemplate.update(sql,sno);
+
         }
         catch (Exception e){
 
@@ -125,6 +125,13 @@ public class StudentDaoImpl implements StudentDao {
             return false;
 
         }
+        try{
+            jdbcTemplate.update(sql1,sno);
+        }catch (Exception e){
+            System.err.println("删除头像失败"+sql+" "+sno);
+            return false;
+        }
+
         return true;
     }
 
@@ -159,7 +166,7 @@ public class StudentDaoImpl implements StudentDao {
         System.out.println(sql);
         int cnt=0;
         try{
-            cnt=jdbcTemplate.update(sql,stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd(),Integer.parseInt(sno));
+            cnt=jdbcTemplate.update(sql,stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd(),sno);
             if (cnt>0){
                 System.err.println("更新学生信息成功");
                 //查询学生信息并返回后端
@@ -167,7 +174,7 @@ public class StudentDaoImpl implements StudentDao {
             }
         }
         catch (Exception e){
-
+            e.printStackTrace();
             System.err.println("插入sql失败"+sql+" "+sno);
             return null;
 

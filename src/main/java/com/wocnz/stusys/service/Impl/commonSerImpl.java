@@ -1,5 +1,7 @@
 package com.wocnz.stusys.service.Impl;
 
+import com.wocnz.stusys.dao.CommonDao;
+import com.wocnz.stusys.dao.impl.CommonDaoImpl;
 import com.wocnz.stusys.dao.impl.StudentDaoImpl;
 import com.wocnz.stusys.dao.impl.TeacherDaoImpl;
 import com.wocnz.stusys.domain.Student;
@@ -8,6 +10,8 @@ import com.wocnz.stusys.service.commonSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
 
 @Component
 public class commonSerImpl implements commonSer {
@@ -20,6 +24,8 @@ public class commonSerImpl implements commonSer {
     @Autowired
     TeacherDaoImpl teacherDao;
 
+    @Autowired
+    CommonDaoImpl commonDao;
     @Override
     public boolean chgpasswd(String uid, String prePasswd, String newPasswd) {
         String sql="update student set passwd = ? where sno = ? ";
@@ -54,4 +60,33 @@ public class commonSerImpl implements commonSer {
 
         return false;
     }
+
+    @Override
+    public Object getUserInfo(String uid) {
+        Student student=studentDao.findStudentBySno(uid);
+
+
+        //如果是老师或者管理员
+        if(uid.indexOf("tea")!=-1||uid.indexOf("admin")!=-1){
+            Teacher teacher=teacherDao.findTeacherBytno(uid);
+            teacher.setPasswd(null);
+            return teacher;
+        }
+        if(student!=null){
+            student.setPasswd(null);//不发送密码信息到前端
+        }
+        return student;
+    }
+
+    @Override
+    public boolean uploadImage(String uid, String imgurl) {
+        return commonDao.uploadImage(uid, imgurl);
+    }
+
+    @Override
+    public File getHeadImage(String uid) {
+        return commonDao.getHeadImage(uid);
+    }
+
+
 }

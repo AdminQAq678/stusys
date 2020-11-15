@@ -119,7 +119,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
         try{
            int  cnt=jdbcTemplate.update(sql,tea.getTname(),tea.getTsex(),tea.getTage(),tea.getTeb(),tea.getTpt(),
-                    tea.getCno1(),tea.getCno2(),tea.getCno3(), tea.getPasswd(),Integer.parseInt(tno));
+                    tea.getCno1(),tea.getCno2(),tea.getCno3(), tea.getPasswd(),tno);
             if (cnt>0){
                 System.err.println("更新教师信息成功");
                 //查询教师信息并返回后端
