@@ -59,6 +59,11 @@ public class StudentSerImpl implements StudentSer {
     }
 
     @Override
+    public boolean chgpasswd(String uid, String prePasswd, String newPasswd) {
+        return studaoImpl.chgpasswd(uid, prePasswd, newPasswd);
+    }
+
+    @Override
     public File getHeadImage(String uid) {
         return studaoImpl.getHeadImage(uid);
     }

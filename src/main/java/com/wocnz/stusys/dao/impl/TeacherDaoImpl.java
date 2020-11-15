@@ -79,9 +79,12 @@ public class TeacherDaoImpl implements TeacherDao {
     public boolean delTeacher(String tno) {
         System.out.println(tno);
         String sql="delete   from teacher where tno = ? ";
+        String sql1="delete   from images where id = ? ";
         System.out.println(sql);
         try{
-            int cnt=jdbcTemplate.update(sql,Integer.parseInt(tno));
+            int cnt=jdbcTemplate.update(sql,tno);
+            //删除图片
+            jdbcTemplate.update(sql1,tno);
             if(cnt>0){
                 System.out.println("删除教师信息成功");
                 return true;
@@ -98,10 +101,11 @@ public class TeacherDaoImpl implements TeacherDao {
 
     @Override
     public Teacher findTeacherBytno(String tno) {
-        String sql2="select *from teacher where tno = ?";
+        String sql2="select * from teacher where tno = ?";
         try {
             return jdbcTemplate.queryForObject(sql2, new BeanPropertyRowMapper<>(Teacher.class), tno);
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println("查询编号为"+tno+"的教师信息失败");
             return null;
         }

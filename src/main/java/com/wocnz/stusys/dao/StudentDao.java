@@ -24,4 +24,6 @@ public interface StudentDao {
 
 
     public File getHeadImage(String uid);
+
+    public boolean chgpasswd(String uid,String prePasswd, String newPasswd);
 }

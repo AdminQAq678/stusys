@@ -105,6 +105,20 @@ public class studentCon {
 
     }
 
+    @RequestMapping(value = "/delStudentByList",method = RequestMethod.POST)
+    public boolean  delStudentByList(@RequestBody  ArrayList<Student> students){
+        System.out.println(students);
+        for (Student s: students){
+            if(stuSerImpl.delStudent(s.getSno())==false){
+                System.out.println("删除失败");
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+
     /**
      * 分页查询接口
      * @param con
@@ -242,7 +256,8 @@ public class studentCon {
                 response.getOutputStream().write(b,0,b.length);
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("无该用户头像");
+            //e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

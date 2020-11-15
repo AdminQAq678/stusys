@@ -22,7 +22,7 @@ public interface StudentSer {
 
     public boolean uploadImage(String uid, String imgurl);
 
-
+    public boolean chgpasswd(String uid,String prePasswd, String newPasswd);
 
     public File getHeadImage(String uid);
 }

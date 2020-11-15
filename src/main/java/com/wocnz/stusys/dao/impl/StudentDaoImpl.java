@@ -3,9 +3,11 @@ package com.wocnz.stusys.dao.impl;
 import com.wocnz.stusys.dao.StudentDao;
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
+import com.wocnz.stusys.domain.Teacher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,6 +25,11 @@ public class StudentDaoImpl implements StudentDao {
      */
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+
+    @Autowired
+    TeacherDaoImpl teacherDao;
+
 
     Logger logger= LoggerFactory.getLogger("studao");//日志
     /**
@@ -84,7 +91,7 @@ public class StudentDaoImpl implements StudentDao {
             jdbcTemplate.update(sql,stu.getSno(),stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd());
         }
         catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
             System.err.println("添加学生信息sql失败"+sql+stu);
             return false;
 
@@ -102,10 +109,15 @@ public class StudentDaoImpl implements StudentDao {
     public boolean delStudent(String sno) {
         System.out.println(sno);
         String sql="delete   from student where sno = ? ";
+
+        //删除头像
+        String sql1="delete   from images where id = ? ";
+
         System.out.println(sql);
         try{
             //add、delete、update 三种sql 都是使用jdbcTemplate.update去执行
-            jdbcTemplate.update(sql,Integer.parseInt(sno));
+            jdbcTemplate.update(sql,sno);
+            jdbcTemplate.update(sql,sno);
         }
         catch (Exception e){
 
@@ -181,9 +193,60 @@ public class StudentDaoImpl implements StudentDao {
         System.out.println(uid);
         String sql="select imageurl from images where id = ? ";
         //注意queryForObject的参数，应该先传入sql语句、返回类型，再传入参数
-        String res=(String) jdbcTemplate.queryForObject(sql,String.class,uid);
-        System.out.println("文件路径"+res);
+        String res="";
+        try {
+             res=(String) jdbcTemplate.queryForObject(sql,String.class,uid);
+            System.out.println("文件路径"+res);
+        }catch (EmptyResultDataAccessException e){
+            System.out.println("无用户头像");
+
+        }
+
+
         return new File(res);
+    }
+
+    /**
+     * 修改密码
+     * @param uid
+     * @param prePasswd
+     * @param newPasswd
+     * @return
+     */
+    @Override
+    public boolean chgpasswd(String uid, String prePasswd, String newPasswd) {
+        String sql="update student set passwd = ? where sno = ? ";
+        if(uid.indexOf("stu")!=-1){                                 //学生
+            Student student=findStudentBySno(uid);
+            if(student==null){
+                System.out.println("不存在该用户");
+                return false;
+            }
+            //判断用户密码是否跟之前的相同
+            if(student.getPasswd().equals(prePasswd)){
+
+                if(jdbcTemplate.update(sql,newPasswd,uid)>0){
+                    return true;
+                }
+            }
+        }else {
+            sql="update teacher set passwd = ? where tno = ? ";
+            Teacher teacher=teacherDao.findTeacherBytno(uid);
+            if(teacher==null){
+                System.out.println("不存在该用户");
+                return false;
+            }
+            //判断用户密码是否跟之前的相同
+            if(teacher.getPasswd().equals(prePasswd)){
+                if(jdbcTemplate.update(sql,newPasswd,uid)>0){
+                    return true;
+                }
+            }
+
+        }
+
+
+       return  false;
     }
 
 
