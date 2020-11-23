@@ -45,4 +45,6 @@ public class CourseSerImpl implements CourseSer {
     public Course updateCourse(String cno, Course cou) {
         return courseDaoImpl.updateCourse(cno, cou);
     }
+
+
 }

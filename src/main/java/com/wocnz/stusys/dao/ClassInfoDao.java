@@ -1,7 +1,6 @@
 package com.wocnz.stusys.dao;
 
 import com.wocnz.stusys.domain.ClassInfo;
-import com.wocnz.stusys.domain.Course;
 
 import java.util.List;
 
@@ -12,4 +11,5 @@ public interface ClassInfoDao {
     public List<ClassInfo> findAllClInfo();
 
     public List<ClassInfo> findTeasCourse();
+    public List<ClassInfo> findClInfosBySno(String sno);
 }

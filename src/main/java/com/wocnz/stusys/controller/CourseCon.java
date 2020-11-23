@@ -40,6 +40,8 @@ public class CourseCon {
         return courseSerImpl.findAllCou();
     }
 
+
+
     /**
      * 根据课程号查询课程信息
      * @param cno
@@ -53,7 +55,7 @@ public class CourseCon {
     }
 
     /**
-     * 根据学号更新学生信息
+     *
      * @param cno 要修改课程的课程号
      * @param cou 该课程的新信息
      * @return

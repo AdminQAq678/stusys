@@ -19,6 +19,7 @@ public class TokenService {
     public static  String getToken(Object user) {
         String no="";
         String passwd="";
+        //判断是学生还是老师
         if(user instanceof Student){
             no=((Student) user).getSno();
             passwd=((Student) user).getPasswd();
@@ -28,7 +29,7 @@ public class TokenService {
         }
 
             Date start = new Date();
-            long currentTime = System.currentTimeMillis() + 60 *60*1000;//一小时有效时间
+            long currentTime = System.currentTimeMillis() + 60*60*1000;//一小时有效时间
             Date end = new Date(currentTime);
             String token = "";
             token = JWT.create().withAudience(no).withIssuedAt(start).withExpiresAt(end)

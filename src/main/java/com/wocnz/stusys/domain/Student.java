@@ -39,7 +39,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "{" +
                 "sno='" + sno + '\'' +
                 ", sname='" + sname + '\'' +
                 ", ssex='" + ssex + '\'' +

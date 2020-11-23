@@ -165,3 +165,17 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
+use stusys;
+delimiter ##
+-- 创建触发器
+create trigger after_insert_student after insert on student for each row
+begin
+    -- 更新商品表的库存，这里只指定了更新第一件商品的库存
+    insert images values(new.sno,"default.jpg");
+end
+##
+
+delimiter ;
