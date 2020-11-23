@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.wocnz.stusys.awt.UserLoginToken;
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
+import com.wocnz.stusys.domain.searchInfo;
 import com.wocnz.stusys.service.Impl.StudentSerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.PathParam;
 import java.io.FileInputStream;
 
 import java.io.IOException;
@@ -105,6 +107,19 @@ public class studentCon {
     }
 
     /**
+     * 删除选中的学生信息
+     * @param students
+     * @return
+     */
+    @RequestMapping(value = "/delStudentByList",method = RequestMethod.POST)
+    public boolean  delStudentByList(@RequestBody Student[] students){
+
+
+        return stuSerImpl.delStudent(students);
+
+    }
+
+    /**
      * 分页查询接口
      * @param con
      * @return
@@ -113,6 +128,7 @@ public class studentCon {
     @UserLoginToken
     @RequestMapping(value = "/findStudentByCon",method = RequestMethod.GET)
     public Condition  findStudentByCon( Condition con){
+
         Condition condition=stuSerImpl.findAllStuByCon(con);
         result= (ArrayList<Student>) condition.getData();
         return condition;
@@ -175,5 +191,23 @@ public class studentCon {
         return list;
     }
 
+    @RequestMapping("/stu/searchStu")
+    public List<Student> searchStu( @RequestBody  searchInfo info){
+        System.out.println(info);
+       return stuSerImpl.searchStudent(info);
+    }
+
+    @PostMapping("/stu/chgpasswd")
+    public boolean chgpasswd(  String uid,  String prePasswd,  String newPasswd){
+
+        Student student=stuSerImpl.findStudentBySno(uid);
+        System.out.println(student);
+        if(student!=null&&prePasswd!=null&&student.getPasswd().equals(prePasswd)&&prePasswd!=""&&newPasswd!=null&&newPasswd!="") {
+            return stuSerImpl.chgpasswd(uid,newPasswd);
+        }
+        System.out.println("修改密码的学生信息"+uid + prePasswd+newPasswd);
+        System.out.println(student.getPasswd()==prePasswd);
+        return false;
+    }
 
 }

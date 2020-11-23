@@ -3,6 +3,8 @@ package com.wocnz.stusys.dao.impl;
 import com.wocnz.stusys.dao.TeacherDao;
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Teacher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,9 +16,11 @@ public class TeacherDaoImpl implements TeacherDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    Logger logger= LoggerFactory.getLogger("teaDao");//日志
     @Override
     public Condition<Teacher> findAllTeaByCon(Condition con) {
         System.out.println(con);
+        logger.info(con.toString());
         String sql="select * from teacher limit ?,? ";
         int start=(con.getCurrentPage()-1)*con.getPageSize();
         int size=con.getPageSize();
@@ -45,6 +49,7 @@ public class TeacherDaoImpl implements TeacherDao {
     @Override
     public boolean addTeacher(Teacher tea) {
         System.out.println(tea);
+        logger.info(tea.toString());
         String sql="insert into teacher values(?,?,?,?,?,?,?,?,?,?)";
         System.out.println(sql);
         if(tea.getCno1().length()==0){
@@ -61,6 +66,7 @@ public class TeacherDaoImpl implements TeacherDao {
             tea.getCno1(),tea.getCno2(),tea.getCno3(),tea.getPasswd());
             if(cnt>0){
                 System.out.println("增加教师信息成功");
+                logger.info("增加教师信息成功");
                 return true;
             }
 
@@ -68,6 +74,7 @@ public class TeacherDaoImpl implements TeacherDao {
         catch (Exception e){
             e.printStackTrace();
             System.err.println("增加教师信息sql执行失败"+sql+tea);
+            logger.error("增加教师信息sql执行失败"+sql+tea);
             return false;
 
         }
@@ -84,11 +91,12 @@ public class TeacherDaoImpl implements TeacherDao {
             int cnt=jdbcTemplate.update(sql,Integer.parseInt(tno));
             if(cnt>0){
                 System.out.println("删除教师信息成功");
+                logger.info("删除教师信息成功");
                 return true;
             }
         }
         catch (Exception e){
-
+            logger.error("删除教师sql失败"+sql+" "+tno);
             System.err.println("删除教师sql失败"+sql+" "+tno);
             return false;
 
@@ -102,6 +110,8 @@ public class TeacherDaoImpl implements TeacherDao {
         try {
             return jdbcTemplate.queryForObject(sql2, new BeanPropertyRowMapper<>(Teacher.class), tno);
         }catch (Exception e){
+            e.printStackTrace();
+            logger.info("查询编号为"+tno+"的教师信息失败");
             System.out.println("查询编号为"+tno+"的教师信息失败");
             return null;
         }
@@ -118,12 +128,14 @@ public class TeacherDaoImpl implements TeacherDao {
                     tea.getCno1(),tea.getCno2(),tea.getCno3(), tea.getPasswd(),Integer.parseInt(tno));
             if (cnt>0){
                 System.err.println("更新教师信息成功");
+                logger.info("更新教师信息成功");
                 //查询教师信息并返回后端
                 return  findTeacherBytno(tno);
             }
         }
         catch (Exception e){
             e.printStackTrace();
+            logger.error("更新教师sql执行失败"+sql+" "+tno);
             System.err.println("更新教师sql执行失败"+sql+" "+tno);
             return null;
 

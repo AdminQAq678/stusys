@@ -38,13 +38,6 @@ public class Teacher {
     @ExcelProperty("密码")
     private String passwd;
 
-    public String getPasswd() {
-        return passwd;
-    }
-
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
-    }
 
     @Override
     public String toString() {
@@ -142,6 +135,13 @@ public class Teacher {
         this.cno3 = cno3;
     }
 
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
 
 
 
