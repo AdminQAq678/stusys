@@ -197,17 +197,6 @@ public class studentCon {
        return stuSerImpl.searchStudent(info);
     }
 
-    @PostMapping("/stu/chgpasswd")
-    public boolean chgpasswd(  String uid,  String prePasswd,  String newPasswd){
 
-        Student student=stuSerImpl.findStudentBySno(uid);
-        System.out.println(student);
-        if(student!=null&&prePasswd!=null&&student.getPasswd().equals(prePasswd)&&prePasswd!=""&&newPasswd!=null&&newPasswd!="") {
-            return stuSerImpl.chgpasswd(uid,newPasswd);
-        }
-        System.out.println("修改密码的学生信息"+uid + prePasswd+newPasswd);
-        System.out.println(student.getPasswd()==prePasswd);
-        return false;
-    }
 
 }
