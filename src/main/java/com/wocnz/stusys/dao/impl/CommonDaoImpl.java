@@ -10,14 +10,23 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 
+/**
+ * 共同接口Dao实现类
+ */
 @Component
 public class CommonDaoImpl implements CommonDao {
     @Autowired
     JdbcTemplate  jdbcTemplate;
 
-
+    //获得日志对象
     Logger logger= LoggerFactory.getLogger("CommonDao");
 
+    /**
+     * 上传头像
+     * @param uid
+     * @param imgurl
+     * @return
+     */
     @Override
     public boolean uploadImage(String uid, String imgurl) {
 //        String sql="insert into images values(?,?) ";
@@ -44,6 +53,11 @@ public class CommonDaoImpl implements CommonDao {
         return false;
     }
 
+    /**
+     * 获取头像
+     * @param uid
+     * @return File
+     */
     @Override
     public File getHeadImage(String uid) {
         System.out.println(uid);

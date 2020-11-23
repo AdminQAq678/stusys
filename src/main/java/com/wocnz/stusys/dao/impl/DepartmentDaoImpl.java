@@ -17,6 +17,11 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    /**
+     * 查询所有的学院信息
+     * @return
+     */
     @Override
     public List<Department> findAllDep() {
         String sql="select * from department";
@@ -26,7 +31,11 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
 
-
+    /**
+     * 添加学院信息
+     * @param department
+     * @return
+     */
     @Override
     public boolean addDepartment(Department department) {
         System.out.println(department);
@@ -50,6 +59,11 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return false;
     }
 
+    /**
+     * 根据学院编号删除学院信息
+     * @param dno
+     * @return
+     */
     @Override
     public boolean delDepartment(String dno) {
         System.out.println(dno);
@@ -73,6 +87,11 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return false;
     }
 
+    /**
+     * 根域学院编号查询学院信息
+     * @param dno
+     * @return
+     */
     @Override
     public Department findDepartmentByDno(String dno) {
         String sql2="select *from department where dno = ?";
@@ -87,6 +106,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
         }
     }
 
+    /**
+     * 根据学院编号和新的学院信息去更新旧的学院信息
+     * @param dno
+     * @param department
+     * @return
+     */
     @Override
     public Department updateDepartment(String dno, Department department) {
         System.out.println(department);

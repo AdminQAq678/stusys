@@ -16,6 +16,11 @@ import java.util.List;
 public class CourseDaoImpl implements CourseDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    /**
+     * 查询所有的课程信息
+     * @return
+     */
     @Override
     public List<Course> findAllCou() {
         String sql="select * from course";
@@ -26,8 +31,11 @@ public class CourseDaoImpl implements CourseDao {
     }
 
 
-
-
+    /**
+     * 分页查询
+     * @param con
+     * @return
+     */
     @Override
     public Condition findAllStuByCon(Condition con) {
         System.out.println(con);
@@ -48,6 +56,11 @@ public class CourseDaoImpl implements CourseDao {
         return tem;
     }
 
+    /**
+     * 添加课程信息
+     * @param cou
+     * @return
+     */
     @Override
     public boolean addCourse(Course cou) {
         if (cou.getCpno()==""){
@@ -71,6 +84,11 @@ public class CourseDaoImpl implements CourseDao {
         return false;
     }
 
+    /**
+     * 根据课程号删除课程信息
+     * @param cno
+     * @return
+     */
     @Override
     public boolean delCourse(String cno) {
         System.out.println(cno);
@@ -93,6 +111,11 @@ public class CourseDaoImpl implements CourseDao {
         return false;
     }
 
+    /**
+     * 根据课程号查询课程信息
+     * @param cno
+     * @return
+     */
     @Override
     public Course findCourseByCno(String cno) {
         String sql2="select *from course where cno = ?";
@@ -109,6 +132,12 @@ public class CourseDaoImpl implements CourseDao {
 
     }
 
+    /**
+     * 根据课程号和新的课程信息更新旧的课程信息
+     * @param cno
+     * @param cou
+     * @return
+     */
     @Override
     public Course updateCourse(String cno, Course cou) {
         System.out.println(cou);

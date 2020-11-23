@@ -8,6 +8,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+/**
+ * ClassInfo用于显示学生选课的课程信息、教师信息的一个实体
+ * ClassInfoDaoImpl是ClassINfoDao的实现类，用于对数据库的操作
+ */
 @Repository
 public class ClassInfoDaoImpl implements ClassInfoDao {
     @Autowired
@@ -26,7 +31,7 @@ public class ClassInfoDaoImpl implements ClassInfoDao {
 
     /**
      * 查询teascourse 和course、teacher表的等值连接结果
-     * 用于可选选课程信息的展示
+     * 用于可选课程信息的展示
      * @return
      */
     @Override
@@ -38,7 +43,11 @@ public class ClassInfoDaoImpl implements ClassInfoDao {
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<ClassInfo>(ClassInfo.class));
     }
 
-
+    /**
+     * 根据学号查询ClassInfo
+     * @param sno
+     * @return
+     */
     @Override
     public List<ClassInfo> findClInfosBySno(String sno) {
         //System.out.println("idid"+sno);

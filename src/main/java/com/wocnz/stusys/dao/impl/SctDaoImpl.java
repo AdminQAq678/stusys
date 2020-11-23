@@ -22,13 +22,17 @@ public class SctDaoImpl implements SctDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     * 未使用
+     * @return
+     */
     @Override
     public List<Sct> findAllSct() {
         return null;
     }
 
     /**
-     *添加sct
+     *添加选课信息
      * @param sct
      * @return
      */
@@ -53,6 +57,13 @@ public class SctDaoImpl implements SctDao {
         return true;
     }
 
+    /**
+     * 根据学号、课程号、以及教师编号去删除选课信息
+     * @param sno
+     * @param cno
+     * @param tno
+     * @return
+     */
     @Override
     public boolean delSct(String sno, String cno, String tno) {
         System.out.println(sno);
@@ -86,7 +97,7 @@ public class SctDaoImpl implements SctDao {
     }
 
     /**
-     *
+     * 根据学号、课程号、教师编号、以及旧的选课信息去更新新的课程信息
      * @param sno
      * @param cno
      * @param tno

@@ -56,7 +56,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 ✔添加学生及教师注册接口，即student 和teacher的post接口
 
-todo :
+✔todo :
     添加登录注册接口
 
 ##增加教师个人教授课程
@@ -69,10 +69,43 @@ todo :
 ✔根据显示的课程列表进行选课，一门课只能选择一次，需要将学生学号及课程号共同作为主键
 在sct表中添加学生学生学号、cno和tno通过表teascourses来插入
 
-需要解决登录后使用学生学号选课的问题（前端页面)，目前选课功能只是使用了固定的学生学号进行选课
+✔需要解决登录后使用学生学号选课的问题（前端页面)，目前选课功能只是使用了固定的学生学号进行选课
 ### 各个模块的搜索功能
-
+✔学生模块的搜索功能
 ### 权限管理功能
+✔简单的权限管理
+### 图片上传功能
+✔已实现
+> 2020/11/23
+### 项目目录结构说明
+* java 
+    * com.wocnz.stusys
+        * awt 鉴权登录相关类
+        * controller 接口类
+        * dao 放置数据库操作接口和它们的实现类
+            * impl 放置dao接口的实现类
+        * domain 各种javabean
+        * service 服务，用于调用Dao
+        * utils 阿里云人脸识别相关类，用不到，可忽略
+        * websocket 可忽略
+        * StusysApplication 项目的启动类
+        * WebMvcConfig 解决跨域请求问题，允许前端在尚未部署项目到后端时也可访问后端的接口
+* resources 资源文件放置
+    application.properties 用于项目配置的相关文件
+* sql sql文件放置目录
+   stusys.mwb 数据库结构设计文件，用于设计数据库结构
+   stusys.sql 由stusys.mwb 导出的sql文件
+* webapp 前端项目部署文件放置的目录
+
+### 项目逻辑说明
+* xxxdao 
+    * 是用户数据库的接口类，xxxDaoImpl是xxxdao的实现类，向上层service提供“服务”
+* xxxservice 
+    * 服务，为controller提供相应的功能，xxxserviceImpl是其具体实现，向上传controller提供“服务”
+* xxxcontroller 
+    * 是前端访问的接口，一个接口类中的每一个方法都可以是一个接口，通过调用service/impl/xxxserviceImpl中的方法，实现接口的功能
 
 
+
+    
 

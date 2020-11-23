@@ -14,6 +14,10 @@ public class TeasCoursesDaoImpl implements TeasCoursesDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     * 查询所有教师的授课信息
+     * @return
+     */
     @Override
     public List<TeasCourses> findAll() {
         String sql="select *from teascourses ";
@@ -21,6 +25,11 @@ public class TeasCoursesDaoImpl implements TeasCoursesDao {
         return    jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TeasCourses.class));
     }
 
+    /**
+     * 分页查询
+     * @param con
+     * @return
+     */
     @Override
     public Condition findAllByCon(Condition con) {
         System.out.println(con);
@@ -41,6 +50,11 @@ public class TeasCoursesDaoImpl implements TeasCoursesDao {
         return tem;
     }
 
+    /**
+     * 添加教师授课信息
+     * @param cou
+     * @return
+     */
     @Override
     public boolean add(TeasCourses cou) {
         System.out.println(cou);
@@ -65,6 +79,11 @@ public class TeasCoursesDaoImpl implements TeasCoursesDao {
         return false;
     }
 
+    /**
+     * 根据课程号删除教师授课信息
+     * @param cno
+     * @return
+     */
     @Override
     public boolean del(String cno) {
 
@@ -86,6 +105,11 @@ public class TeasCoursesDaoImpl implements TeasCoursesDao {
         return false;
     }
 
+    /**
+     * 根据课程号查询教师授课信息
+     * @param cno
+     * @return
+     */
     @Override
     public TeasCourses findByCno(String cno) {
         String sql2="select *from teasCourses where cno = ?";
@@ -102,6 +126,12 @@ public class TeasCoursesDaoImpl implements TeasCoursesDao {
 
     }
 
+    /**
+     * 根据课程号和新的课程信息更新旧的课程信息
+     * @param cno
+     * @param tcs
+     * @return
+     */
     @Override
     public TeasCourses update(String cno, TeasCourses tcs) {
         System.out.println(cno);

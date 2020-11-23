@@ -14,6 +14,11 @@ public class TeacherDaoImpl implements TeacherDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     * 分页查询
+     * @param con
+     * @return
+     */
     @Override
     public Condition<Teacher> findAllTeaByCon(Condition con) {
         System.out.println(con);
@@ -34,6 +39,10 @@ public class TeacherDaoImpl implements TeacherDao {
         return tem;
     }
 
+    /**
+     * 查询所有的教师信息
+     * @return
+     */
     @Override
     public List<Teacher> findAllTea() {
         String sql="select * from teacher";
@@ -42,6 +51,11 @@ public class TeacherDaoImpl implements TeacherDao {
         return teachers;
     }
 
+    /**
+     * 添加教师信息
+     * @param tea
+     * @return
+     */
     @Override
     public boolean addTeacher(Teacher tea) {
         System.out.println(tea);
@@ -75,6 +89,11 @@ public class TeacherDaoImpl implements TeacherDao {
         return false;
     }
 
+    /**
+     * 根据教师编号删除教师信息
+     * @param tno
+     * @return
+     */
     @Override
     public boolean delTeacher(String tno) {
         System.out.println(tno);
@@ -99,18 +118,29 @@ public class TeacherDaoImpl implements TeacherDao {
         return false;
     }
 
+    /**
+     * 根据教师编号查询教师信息
+     * @param tno
+     * @return
+     */
     @Override
     public Teacher findTeacherBytno(String tno) {
         String sql2="select * from teacher where tno = ?";
         try {
             return jdbcTemplate.queryForObject(sql2, new BeanPropertyRowMapper<>(Teacher.class), tno);
         }catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("查询编号为"+tno+"的教师信息失败");
             return null;
         }
     }
 
+    /**
+     * 根据教师编号和新的教师信息更新教师旧的教师信息
+     * @param tno
+     * @param tea
+     * @return
+     */
     @Override
     public Teacher updateTeacher(String tno, Teacher tea) {
         System.out.println(tno);

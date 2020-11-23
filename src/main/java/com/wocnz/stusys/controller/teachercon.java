@@ -85,6 +85,19 @@ public class teachercon {
         return teaSerImpl.delTeacher(tno);
     }
 
+    @RequestMapping(value = "/delTeacherByList",method = RequestMethod.POST)
+    public boolean  delStudentByList(@RequestBody  ArrayList<Teacher> teachers){
+        System.out.println(teachers);
+        for (Teacher s: teachers){
+            if(!teaSerImpl.delTeacher(s.getTno())){
+                System.out.println("删除失败");
+                return false;
+            }
+        }
+        return true;
+
+    }
+
     @RequestMapping(value = "/findTeacherByCon",method = RequestMethod.GET)
     public Condition findStudentByCon(Condition con){
         Condition condition=teaSerImpl.findAllTeaByCon(con);
