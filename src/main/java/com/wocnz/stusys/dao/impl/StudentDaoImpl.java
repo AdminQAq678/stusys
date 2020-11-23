@@ -3,17 +3,15 @@ package com.wocnz.stusys.dao.impl;
 import com.wocnz.stusys.dao.StudentDao;
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
-import com.wocnz.stusys.domain.Teacher;
+import com.wocnz.stusys.domain.searchInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -25,11 +23,6 @@ public class StudentDaoImpl implements StudentDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-
-    @Autowired
-    TeacherDaoImpl teacherDao;
-
-
     Logger logger= LoggerFactory.getLogger("studao");//日志
     /**
      * 查询所有的学生信息
@@ -40,6 +33,8 @@ public class StudentDaoImpl implements StudentDao {
         String sql="select * from student";
         List<Student> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Student.class));
         System.out.println(students);
+        logger.info(sql);
+
         return students;
     }
 
@@ -50,20 +45,49 @@ public class StudentDaoImpl implements StudentDao {
      */
     @Override
     public  Condition<Student> findAllStuByCon(Condition con) {
+        ArrayList<Object> args=new ArrayList<>();
         System.out.println(con);
         //分页查询sql
-        String sql="select * from student limit ?,? ";
+        String sql="select * from student where 1=1 ";
+        //查询学生总数
+        String sql2="select count(*) from student  where 1=1 ";
+        logger.info("分页查询sql"+sql);
         //开始的位置
         int start=(con.getCurrentPage()-1)*con.getPageSize();
         //查询的条数
         int size=con.getPageSize();
-        //执行sql
-        List<Student> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Student.class),start,size);
-        System.out.println(students);
 
-        String sql2="select count(*) from student";
+
+        //根据搜索条件去修改sql语句
+        if(null!=con.getId()&& con.getId()!=""){
+            sql+="  and  sno  REGEXP  ? ";
+            sql2+="  and  sno  REGEXP  ? ";
+            args.add(Integer.valueOf(con.getId()));
+        }
+        if(null!=con.getName() && con.getName()!=""){
+            sql+="  and  sname  REGEXP  ? ";
+            sql2+="  and  sname  REGEXP  ? ";
+            args.add(con.getName());
+        }
+        if(null!=con.getDep()&& con.getDep()!=""){
+            sql+=" and dep REGEXP ? ";
+            sql2+=" and dep REGEXP ? ";
+            args.add(con.getDep());
+        }
+
+        sql+=" limit ?,? ";
+
+        args.add(start);
+        args.add(size);
+        List<Student> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Student.class),args.toArray());
+        System.out.println(students);
+        logger.info(sql);
+        logger.info(args.toString());
+        args.remove(args.size()-1);
+        args.remove(args.size()-1);
+
         //查询学生的数量，返回一个整型数
-        Integer totalCount=jdbcTemplate.queryForObject(sql2,Integer.class);
+        Integer totalCount=jdbcTemplate.queryForObject(sql2,Integer.class,args.toArray());
 
         Condition tem=new Condition();
         //设置返回的前端的数据data
@@ -108,15 +132,10 @@ public class StudentDaoImpl implements StudentDao {
     public boolean delStudent(String sno) {
         System.out.println(sno);
         String sql="delete   from student where sno = ? ";
-
-        //删除头像
-        String sql1="delete   from images where id = ? ";
-
-        System.out.println(sql);
+        logger.info(sql);
         try{
             //add、delete、update 三种sql 都是使用jdbcTemplate.update去执行
-            jdbcTemplate.update(sql,sno);
-
+            jdbcTemplate.update(sql,Integer.parseInt(sno));
         }
         catch (Exception e){
 
@@ -124,15 +143,19 @@ public class StudentDaoImpl implements StudentDao {
             return false;
 
         }
-        try{
-            jdbcTemplate.update(sql1,sno);
-        }catch (Exception e){
-            System.err.println("删除头像失败"+sql+" "+sno);
-            return false;
-        }
-
         return true;
     }
+
+
+    @Override
+    public boolean delStudent(Student[] students) {
+        for(Student stu: students){
+            this.delStudent(stu.getSno());
+        }
+        return true;
+    }
+
+
 
     /**
      * 通过学号查询学生信息
@@ -142,6 +165,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public Student findStudentBySno(String sno) {
         String sql2="select *from student where sno = ?";
+        logger.info(sql2);
         try{
             Student ret=jdbcTemplate.queryForObject(sql2,new BeanPropertyRowMapper<>(Student.class),sno);
             return ret;
@@ -162,19 +186,21 @@ public class StudentDaoImpl implements StudentDao {
     public Student updateStudent(String sno, Student stu) {
 //        System.out.println(stu+"++++++++++");
         String sql="update student  set sname=?, ssex=?, sage=?, sdept=?,passwd=? where sno=?  ";
-        System.out.println(sql);
+        logger.info(sql);
         int cnt=0;
         try{
-            cnt=jdbcTemplate.update(sql,stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd(),sno);
+            cnt=jdbcTemplate.update(sql,stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd(),Integer.parseInt(sno));
             if (cnt>0){
                 System.err.println("更新学生信息成功");
+                logger.info("更新学生信息成功");
                 //查询学生信息并返回后端
                 return  this.findStudentBySno(sno);
             }
         }
         catch (Exception e){
-            e.printStackTrace();
+
             System.err.println("插入sql失败"+sql+" "+sno);
+            logger.info("更新学生信息失败"+sql);
             return null;
 
         }
@@ -182,77 +208,38 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public boolean uploadImage(String uid, String imgurl) {
-//        String sql="insert into images values(?,?) ";
-        String sql="update images set imageurl=? where id=?";
-       int cnt=jdbcTemplate.update(sql,imgurl,uid);
-       if(cnt>0){
-           logger.info("图片路径保存成功");
-           return true;
-       }
-        logger.info("图片路径保存失败");
-        return false;
-    }
-
-    @Override
-    public File getHeadImage(String uid) {
-        System.out.println(uid);
-        String sql="select imageurl from images where id = ? ";
-        //注意queryForObject的参数，应该先传入sql语句、返回类型，再传入参数
-        String res="";
-        try {
-             res=(String) jdbcTemplate.queryForObject(sql,String.class,uid);
-            System.out.println("文件路径"+res);
-        }catch (EmptyResultDataAccessException e){
-            System.out.println("无用户头像");
-
+    public List<Student> searchStudent(searchInfo info) {
+        ArrayList<Object> args=new ArrayList<>();
+        String sql="select *from student where 1=1  ";
+        //根据搜索条件去修改sql语句
+        if(null!=info.getId()&& info.getId()!=""){
+            sql+="  and  sno  REGEXP  ? ";
+            args.add(Integer.valueOf(info.getId()));
+        }
+        if(null!=info.getName() && info.getName()!=""){
+            sql+="  and  sname  REGEXP  ? ";
+            args.add(info.getName());
+        }
+        if(null!=info.getDep()&& info.getDep()!=""){
+            sql+=" and dep REGEXP ? ";
+            args.add(info.getDep());
         }
 
+        logger.debug("搜索sql："+sql);
 
-        return new File(res);
+        List<Student> students=jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Student.class),args.toArray());
+        System.out.println(students);
+        logger.info(sql);
+        return students;
     }
 
-    /**
-     * 修改密码
-     * @param uid
-     * @param prePasswd
-     * @param newPasswd
-     * @return
-     */
     @Override
-    public boolean chgpasswd(String uid, String prePasswd, String newPasswd) {
+    public boolean chgpasswd(String id, String passwd){
         String sql="update student set passwd = ? where sno = ? ";
-        if(uid.indexOf("stu")!=-1){                                 //学生
-            Student student=findStudentBySno(uid);
-            if(student==null){
-                System.out.println("不存在该用户");
-                return false;
-            }
-            //判断用户密码是否跟之前的相同
-            if(student.getPasswd().equals(prePasswd)){
-
-                if(jdbcTemplate.update(sql,newPasswd,uid)>0){
-                    return true;
-                }
-            }
-        }else {
-            sql="update teacher set passwd = ? where tno = ? ";
-            Teacher teacher=teacherDao.findTeacherBytno(uid);
-            if(teacher==null){
-                System.out.println("不存在该用户");
-                return false;
-            }
-            //判断用户密码是否跟之前的相同
-            if(teacher.getPasswd().equals(prePasswd)){
-                if(jdbcTemplate.update(sql,newPasswd,uid)>0){
-                    return true;
-                }
-            }
-
-        }
-
-
-       return  false;
+        int cnt=jdbcTemplate.update(sql,passwd,Integer.valueOf(id));
+        logger.debug("返回结果"+cnt);
+        if(cnt>0) return  true;
+        return false;
     }
 
 

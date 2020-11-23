@@ -2,9 +2,9 @@ package com.wocnz.stusys.dao;
 
 import com.wocnz.stusys.domain.Condition;
 import com.wocnz.stusys.domain.Student;
-import org.springframework.web.multipart.MultipartFile;
+import com.wocnz.stusys.domain.searchInfo;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface StudentDao {
@@ -16,17 +16,14 @@ public interface StudentDao {
 
     public boolean delStudent(String sno);
 
+    public boolean delStudent(Student[] students);
+
     public Student findStudentBySno(String sno);
 
     public Student updateStudent(String sno, Student stu );
 
-    public boolean uploadImage(String uid, String imgurl);
+    public List<Student> searchStudent(searchInfo info);
 
 
-    public File getHeadImage(String uid);
-
-    public boolean chgpasswd(String uid,String prePasswd, String newPasswd);
-
-
-
+    public boolean chgpasswd(String id, String passwd);
 }

@@ -12,8 +12,10 @@ public class Condition<E> {
     private int pageSize;
     //记录总数
     private int totalCount;
-    //数据
-    private List<E>   data;
+    //搜索栏信息
+    private String id;
+    private String name;
+    private String dep;
 
     @Override
     public String toString() {
@@ -21,9 +23,39 @@ public class Condition<E> {
                 "currentPage=" + currentPage +
                 ", pageSize=" + pageSize +
                 ", totalCount=" + totalCount +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", dep='" + dep + '\'' +
                 ", data=" + data +
                 '}';
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDep() {
+        return dep;
+    }
+
+    public void setDep(String dep) {
+        this.dep = dep;
+    }
+
+    //数据
+    private List<E>   data;
 
     public int getCurrentPage() {
         return currentPage;
