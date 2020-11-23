@@ -184,12 +184,12 @@ public class StudentDaoImpl implements StudentDao {
          */
     @Override
     public Student updateStudent(String sno, Student stu) {
-//        System.out.println(stu+"++++++++++");
+       //System.out.println(stu+"++++++++++");
         String sql="update student  set sname=?, ssex=?, sage=?, sdept=?,passwd=? where sno=?  ";
         logger.info(sql);
         int cnt=0;
         try{
-            cnt=jdbcTemplate.update(sql,stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd(),Integer.parseInt(sno));
+            cnt=jdbcTemplate.update(sql,stu.getSname(),stu.getSsex(),stu.getSage(),stu.getSdept(),stu.getPasswd(),sno);
             if (cnt>0){
                 System.err.println("更新学生信息成功");
                 logger.info("更新学生信息成功");

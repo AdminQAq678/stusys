@@ -91,6 +91,10 @@ public class studentCon {
         if(stu.getSdept().length()==0){
             stu.setSdept(null);
         }
+        //默认密码为学号
+        if(stu.getPasswd()==null||stu.getPasswd().length()==0){
+            stu.setPasswd(stu.getSno());
+        }
         return  stuSerImpl.addStudent(stu);
     }
     /**

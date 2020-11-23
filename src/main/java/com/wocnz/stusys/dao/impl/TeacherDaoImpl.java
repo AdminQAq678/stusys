@@ -61,6 +61,11 @@ public class TeacherDaoImpl implements TeacherDao {
         if(tea.getCno3().length()==0){
             tea.setCno3(null);
         }
+        //默认密码为教工号
+        if(tea.getPasswd()==null||tea.getPasswd().length()==0){
+            tea.setPasswd(tea.getTno());
+        }
+
         try{
             int cnt=jdbcTemplate.update(sql,tea.getTno(),tea.getTname(),tea.getTsex(),tea.getTage(),tea.getTeb(),tea.getTpt(),
             tea.getCno1(),tea.getCno2(),tea.getCno3(),tea.getPasswd());
@@ -88,7 +93,7 @@ public class TeacherDaoImpl implements TeacherDao {
         String sql="delete   from teacher where tno = ? ";
         System.out.println(sql);
         try{
-            int cnt=jdbcTemplate.update(sql,Integer.parseInt(tno));
+            int cnt=jdbcTemplate.update(sql,tno);
             if(cnt>0){
                 System.out.println("删除教师信息成功");
                 logger.info("删除教师信息成功");
@@ -125,7 +130,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
         try{
            int  cnt=jdbcTemplate.update(sql,tea.getTname(),tea.getTsex(),tea.getTage(),tea.getTeb(),tea.getTpt(),
-                    tea.getCno1(),tea.getCno2(),tea.getCno3(), tea.getPasswd(),Integer.parseInt(tno));
+                    tea.getCno1(),tea.getCno2(),tea.getCno3(), tea.getPasswd(),tno);
             if (cnt>0){
                 System.err.println("更新教师信息成功");
                 logger.info("更新教师信息成功");

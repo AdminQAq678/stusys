@@ -53,6 +53,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
         }
         catch (Exception e){
+            e.printStackTrace();
             System.err.println("增加院系信息失败"+sql+department);
             return false;
         }
@@ -130,7 +131,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
         }
         catch (Exception e){
-
+            e.printStackTrace();
             System.err.println("更新学院信息失败"+sql+" "+dno);
             return null;
 
